@@ -35,6 +35,20 @@ const getSingleDuck = async (req, res) => {
     }
 }
 
+// get a last five attractions duck
+const getLastFiveAttractions = async (req, res) => {
+    try {
+        const lastFiveAttractions = await RubberDuck.find()
+        .sort({ createdAt: -1} ) // Sort by `createdAt` in descending order
+        .limit(5)
+        console.log(lastFiveAttractions)
+        res.status(200).json(lastFiveAttractions);
+    } catch (error) {
+        res.status(400).json({ mssg: 'Error fetching last five attractions', err: error });
+    }
+};
+
+
 // create a new duck
 const createDuck = async (req, res) => {
     const {name, color, imageUrl} = req.body;
@@ -79,4 +93,5 @@ module.exports = {
     deleteDuck,
     updateDuck,
     getRandomDuck,
+    getLastFiveAttractions,
 }

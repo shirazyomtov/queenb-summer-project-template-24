@@ -5,6 +5,7 @@ const { createDuck,
     deleteDuck,
     updateDuck,
     getRandomDuck,
+    getLastFiveAttractions,
  } = require('../controllers/rubberDuckController')
 
 const router = express.Router()
@@ -13,13 +14,16 @@ const router = express.Router()
  * Read Only Permission Routes
  */
 // GET all ducks
-router.get('/', getAllDucks)
+// router.get('/', getAllDucks)
 
 // GET a random duck
 router.get('/random', getRandomDuck);
 
 // GET a single duck
 router.get('/:id', getSingleDuck)
+
+// GET a last five ducks
+router.get('/', getLastFiveAttractions)
 
 /**
  * Read and Write Permission Routes
