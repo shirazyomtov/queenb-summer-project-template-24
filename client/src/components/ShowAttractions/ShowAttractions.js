@@ -5,7 +5,7 @@ import SingleAttraction from '../SingleAttraction/SingleAttraction';
 
 
 const ShowAttractions = () => {
-  const { attractions, getLastFiveAttractions } = useContext(AttractionContext);
+  const { attractions, getAllAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
 
   console.log('Attractions after fetching:', attractions);
@@ -19,7 +19,7 @@ const ShowAttractions = () => {
     const fetchAttractions = async () => {
       try {
         setLoading(true); // Start loading
-        await getLastFiveAttractions(); // Fetch attractions
+        await getAllAttractions(); // Fetch attractions
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
@@ -38,7 +38,7 @@ const ShowAttractions = () => {
   return (
     <div className={styles.container}>
         {attractions.map((attraction) => (
-            <SingleAttraction key={attraction.name} attraction={attraction} />
+            <SingleAttraction key={attraction.title} attraction={attraction} />
           ))}
     </div>
   );

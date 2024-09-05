@@ -6,8 +6,9 @@ const AttractionContext = createContext();
 const AttractionProvider = ({ children }) => {
     const [attractions, setAttractions] = useState(null);
 
-    const getLastFiveAttractions = async () => {
+    const getAllAttractions = async () => {
         try {
+            console.log("in context")
             const response = await api.get('/rubberDucks');
             setAttractions(response.data);
         } catch (error) {
@@ -16,11 +17,11 @@ const AttractionProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        getLastFiveAttractions();
+        getAllAttractions();
     }, []);
 
     return (
-        <AttractionContext.Provider value={{ attractions, getLastFiveAttractions }}>
+        <AttractionContext.Provider value={{ attractions, getAllAttractions }}>
             {children}
         </AttractionContext.Provider>
     );

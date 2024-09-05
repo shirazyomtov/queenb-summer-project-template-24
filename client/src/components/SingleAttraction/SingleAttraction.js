@@ -7,11 +7,11 @@ const SingleAttraction = ({ attraction }) => {
 
   return (
     <div className={styles.duck}>
-      <h2 className={styles.duckName}>{attraction.name}</h2>
+      <h2 className={styles.duckName}>{attraction.title}</h2>
       {attraction.imageUrl && (
         <img
           src={attraction.imageUrl}
-          alt={attraction.name}
+          alt={attraction.title}
           className={styles.img}
         />
       )}
