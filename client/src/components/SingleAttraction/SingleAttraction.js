@@ -1,5 +1,4 @@
 import React from 'react';
-// import styles from './SingleAttraction.module.css'; // Adjust the path if needed
 import styles from '../ShowAttractions/ShowAttractions.module.css'; // Adjust the path if needed
 
 const SingleAttraction = ({ attraction }) => {
@@ -7,7 +6,7 @@ const SingleAttraction = ({ attraction }) => {
 
   return (
     <div className={styles.duck}>
-      <h2 className={styles.duckName}>{attraction.title}</h2>
+
       {attraction.imageUrl && (
         <img
           src={attraction.imageUrl}
@@ -15,6 +14,9 @@ const SingleAttraction = ({ attraction }) => {
           className={styles.img}
         />
       )}
+      <h2 className={styles.duckName}>{attraction.title}</h2>
+      <p className={styles.duckCity}>{attraction.city}</p>
+
     </div>
   );
 };

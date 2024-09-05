@@ -9,7 +9,7 @@ const AttractionProvider = ({ children }) => {
     const getAllAttractions = async () => {
         try {
             console.log("in context")
-            const response = await api.get('/rubberDucks');
+            const response = await api.get('/attractions');
             setAttractions(response.data);
         } catch (error) {
             console.error('Error fetching the attraction:', error);

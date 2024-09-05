@@ -1,5 +1,14 @@
-// const RubberDuck = require('../models/RubberDuckModel');
 const Attraction = require('../models/AttractionModel');
+
+// get all attractions
+const getAllAttractions = async (req, res) => {
+    try {
+        const attractions = await Attraction.find();
+        res.status(200).json(attractions);
+    } catch (err) {
+        res.status(400).json({mssg: 'error getting attractions', err})
+    }
+}
 
 // // get all ducks
 // const getAllDucks = async (req, res) => {
@@ -35,30 +44,6 @@ const Attraction = require('../models/AttractionModel');
 //         res.status(400).json({mssg: 'error getting duck', err})
 //     }
 // }
-
-// // get a last five attractions duck
-// const getLastFiveAttractions = async (req, res) => {
-//     try {
-
-//         const lastFiveAttractions = await Attraction.find()
-//         .sort({ createdAt: -1} ) // Sort by `createdAt` in descending order
-//         .limit(5)
-//         console.log(lastFiveAttractions)
-//         res.status(200).json(lastFiveAttractions);
-//     } catch (error) {
-//         res.status(400).json({ mssg: 'Error fetching last five attractions', err: error });
-//     }
-// };
-
-// get all ducks
-const getAllAttractions = async (req, res) => {
-    try {
-        const attractions = await Attraction.find();
-        res.status(200).json({attractions});
-    } catch (err) {
-        res.status(400).json({mssg: 'error getting attractions', err})
-    }
-}
 
 // // create a new duck
 // const createDuck = async (req, res) => {
@@ -97,6 +82,8 @@ const getAllAttractions = async (req, res) => {
 //     }
 // }
 
+
+
 module.exports = {
     // getAllDucks,
     // getSingleDuck,
@@ -104,6 +91,5 @@ module.exports = {
     // deleteDuck,
     // updateDuck,
     // getRandomDuck,
-    // getLastFiveAttractions,
     getAllAttractions,
 }

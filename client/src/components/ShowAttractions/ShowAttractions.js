@@ -7,15 +7,10 @@ import SingleAttraction from '../SingleAttraction/SingleAttraction';
 const ShowAttractions = () => {
   const { attractions, getAllAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
-
-  console.log('Attractions after fetching:', attractions);
   
-  // // Fetch the last five attractions when the component mounts
-  // useEffect(() => {
-  //   getLastFiveAttractions();
-  // }, []);
-
   useEffect(() => {
+    console.log("useEffect triggered");
+
     const fetchAttractions = async () => {
       try {
         setLoading(true); // Start loading
@@ -29,6 +24,7 @@ const ShowAttractions = () => {
 
     fetchAttractions();
   }, []);
+
 
   if (loading) {
     return <div>Loading attractions...</div>; // Display loading message
