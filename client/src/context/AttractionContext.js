@@ -6,25 +6,31 @@ const AttractionContext = createContext();
 const AttractionProvider = ({ children }) => {
     const [attractions, setAttractions] = useState(null);
 
-    const getAllAttractions = async () => {
+    // Function to fetch filtered attractions
+    const filterAttractions = async (continent, country, category) => {
         try {
-            console.log("in context")
-            const response = await api.get('/attractions');
+            // Construct the query string with parameters
+            const queryParams = new URLSearchParams({
+                continent: continent || '', // Default to empty string if not provided
+                country: country || '',
+                category: category || ''
+            }).toString();
+
+            const response = await api.get(`/attractions/filter?${queryParams}`);
             setAttractions(response.data);
         } catch (error) {
-            console.error('Error fetching the attraction:', error);
+            console.error('Error fetching attractions:', error);
         }
     };
 
     useEffect(() => {
-        getAllAttractions();
+        filterAttractions(); // Fetch all attractions on component mount
     }, []);
 
     return (
-        <AttractionContext.Provider value={{ attractions, getAllAttractions }}>
+        <AttractionContext.Provider value={{ attractions, filterAttractions }}>
             {children}
         </AttractionContext.Provider>
     );
 };
-
 export { AttractionContext, AttractionProvider };

@@ -5,16 +5,15 @@ import SingleAttraction from '../SingleAttraction/SingleAttraction';
 
 
 const ShowAttractions = () => {
-  const { attractions, getAllAttractions } = useContext(AttractionContext);
+  const { attractions, filterAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    console.log("useEffect triggered");
-
-    const fetchAttractions = async () => {
+    
+    const fetchAttractions = async (continent, country, category) => {
       try {
         setLoading(true); // Start loading
-        await getAllAttractions(); // Fetch attractions
+        await filterAttractions(continent, country, category); // Fetch attractions
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
@@ -34,7 +33,7 @@ const ShowAttractions = () => {
   return (
     <div className={styles.container}>
         {attractions.map((attraction) => (
-            <SingleAttraction key={attraction.title} attraction={attraction} />
+            <SingleAttraction key={attraction._id} attraction={attraction} />
           ))}
     </div>
   );

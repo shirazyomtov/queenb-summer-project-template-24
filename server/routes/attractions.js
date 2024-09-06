@@ -7,6 +7,8 @@ const { //createDuck,
     // getRandomDuck,
     // getLastFiveAttractions,
     getAllAttractions,
+    filterAttractions,
+    createAttraction,
  } = require('../controllers/attractionController')
 
 const router = express.Router()
@@ -15,6 +17,9 @@ const router = express.Router()
 // GET all Attractions
 router.get('/', getAllAttractions)
 
+router.get('/filter', filterAttractions)
+
+router.post('/create', createAttraction)
 
 /////////////// Ducks:
 /**

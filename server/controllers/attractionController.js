@@ -10,6 +10,46 @@ const getAllAttractions = async (req, res) => {
     }
 }
 
+// filter attractions
+const filterAttractions = async (req, res) => {
+    try {
+        const { continents, countries, categories } = req.body;
+
+        // Build the query object dynamically
+        const filter = {};
+       // Add conditions to the filter if they exist and are arrays
+        if (Array.isArray(continents) && continents.length > 0) {
+            filter.continent = { $in: continents };
+        }
+        if (Array.isArray(countries) && countries.length > 0) {
+            filter.country = { $in: countries };
+        }
+        if (Array.isArray(categories) && categories.length > 0) {
+            filter.category = { $in: categories };
+        }
+
+        // Find attractions with the dynamic filter
+        const attractions = await Attraction.find(filter);
+      
+        res.status(200).json(attractions);
+    } catch (err) {
+        res.status(400).json({mssg: 'error getting attractions', err})
+    }
+}
+
+// create a new attraction
+const createAttraction = async (req, res) => {
+    const {title,city,imageUrl,description,recommendations,category,country,continent} = req.body;
+
+    try {
+        const attraction = await Attraction.create({title,city,imageUrl,description,recommendations,category,country,continent});
+        res.status(200).json({attraction});
+    } catch (err) {
+        res.status(400).json({mssg: 'error creating attraction', err})
+    }
+}
+
+
 // // get all ducks
 // const getAllDucks = async (req, res) => {
 //     try {
@@ -92,4 +132,6 @@ module.exports = {
     // updateDuck,
     // getRandomDuck,
     getAllAttractions,
+    filterAttractions,
+    createAttraction,
 }

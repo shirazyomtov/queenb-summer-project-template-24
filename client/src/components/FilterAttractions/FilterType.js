@@ -1,0 +1,25 @@
+import React, {useState} from 'react';
+import styles from './FilterAttractions.module.css'; // Adjust the path if needed
+import CheckBox from '../common/FirstCheckBox/CheckBox';
+
+const FilterType = ({ type, options, selectedOptions, handleChange }) => {
+
+
+    return(
+        <div>
+            <h3 className={styles.filterTypeTitle}>{type.charAt(0).toUpperCase() + type.slice(1)}:</h3>
+            {options.map((op) => (
+                <CheckBox
+                    key={op} // Unique key for each checkbox
+                    checkBoxName={op}
+                    filterType={`${type}_selected`}
+                    selectedOptions={selectedOptions}
+                    // handleChange={handleChange}
+                    handleChange={(e)=>handleChange(e, `${type}_selected`, op)}
+                />
+            ))}
+        </div>
+    )
+}
+
+export default FilterType

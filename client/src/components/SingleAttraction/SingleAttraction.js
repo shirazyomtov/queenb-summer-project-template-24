@@ -15,7 +15,7 @@ const SingleAttraction = ({ attraction }) => {
         />
       )}
       <h2 className={styles.duckName}>{attraction.title}</h2>
-      <p className={styles.duckCity}>{attraction.city}</p>
+      <p className={styles.duckCity}>{attraction.city}, {attraction.country}</p>
 
     </div>
   );
