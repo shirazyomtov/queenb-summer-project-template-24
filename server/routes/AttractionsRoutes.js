@@ -5,7 +5,6 @@ const { //createDuck,
     // deleteDuck,
     // updateDuck,
     // getRandomDuck,
-    // getLastFiveAttractions,
     getAllAttractions,
     filterAttractions,
     createAttraction,
@@ -15,7 +14,7 @@ const { //createDuck,
 const router = express.Router()
 
 ///////////// Attractions:
-// GET all Attractions
+
 router.get('/', getAllAttractions)
 
 router.get('/filter', filterAttractions)

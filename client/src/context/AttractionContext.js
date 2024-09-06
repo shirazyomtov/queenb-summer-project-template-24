@@ -1,8 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import api from '../services/api';
 import qs from 'qs';
-// import querystring from 'querystring';
-
 
 const AttractionContext = createContext();
 
@@ -26,10 +24,6 @@ const AttractionProvider = ({ children }) => {
             console.error('Error fetching attractions:', error);
         }
     };
-
-    // useEffect(() => {
-    //     filterAttractions(); // Fetch all attractions on component mount
-    // }, []);
 
     return (
         <AttractionContext.Provider value={{ attractions, filterAttractions }}>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './FilterAttractions.module.css'; // Adjust the path if needed
 import CheckBox from '../common/FirstCheckBox/CheckBox';
 
@@ -14,7 +14,6 @@ const FilterType = ({ type, options, selectedOptions, handleChange }) => {
                     checkBoxName={op}
                     filterType={`${type}_selected`}
                     selectedOptions={selectedOptions}
-                    // handleChange={handleChange}
                     handleChange={(e)=>handleChange(e, `${type}_selected`, op)}
                 />
             ))}
