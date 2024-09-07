@@ -1,17 +1,40 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './FilterAttractions.module.css'; // Adjust the path if needed
-import CheckBox from '../common/FirstCheckBox/CheckBox';
+// import CheckBox from '../common/FirstCheckBox/CheckBox';
 import FilterType from './FilterType';
+import api from '../../services/api';
+import ShowAttractions from '../ShowAttractions/ShowAttractions';
 
-const FilterAttractions = () => {
+const FilterAttractions = ({ onFilterChange, onSubmit }) => {
     const [selectedOptions, setSelectedOptions] = useState({
         continents_selected: [],
         categories_selected: []
     });
+    const [continents, setContinents] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [filters, setFilters] = useState({
+        continents_filters: [],
+        categories_filters: [],
+    })
 
-    // Predefined options
-    const continents = ['Europe', 'Oceania'];
-    const categories = ['Restaurants', 'Sights'];
+    const getValues = async () => {
+        try {
+            const [continentsResponse, categoriesResponse] = await Promise.all([
+                api.get(`/attractions/unique/continent`),
+                api.get(`/attractions/unique/category`)
+            ]);
+
+            setContinents(continentsResponse.data);
+            setCategories(categoriesResponse.data);
+
+        } catch (error) {
+            console.error('Error fetching filter values:', error);
+        }
+    }
+
+    useEffect(() => {
+        getValues()
+    }, []);
 
     const handleChange = (event, filterType, checkBoxName) => {
         const { checked } = event.target;
@@ -31,6 +54,7 @@ const FilterAttractions = () => {
                     : currentOptions.filter(option => option !== checkBoxName) // Remove value if unchecked
             };
             console.log("updatedOptions: ", updatedOptions)
+            onFilterChange(updatedOptions)
 
             return updatedOptions;
         });
@@ -40,19 +64,25 @@ const FilterAttractions = () => {
   return (
     <div className={styles.filtersContainer}>
         <h2 className={styles.filtersTitle}>Filters:</h2>
-        <FilterType 
+        {continents.length > 0 && (
+            <FilterType 
             type="continents" 
             options={continents}
             selectedOptions={selectedOptions}
             handleChange={handleChange}
-        />
+            />
+        )}
+        {categories.length > 0 && (
+            <FilterType 
+                type="categories"
+                options={categories}
+                selectedOptions={selectedOptions}
+                handleChange={handleChange}
+            />
+        )}
+        <button onClick={onSubmit}>Done</button>
+        {/* <ShowAttractions continent={filters.continent} category={filters.category} /> */}
 
-        <FilterType 
-            type="category"
-            options={categories}
-            selectedOptions={selectedOptions}
-            handleChange={handleChange}
-        />
     </div>
   );
 };

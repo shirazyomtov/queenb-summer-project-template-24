@@ -7,12 +7,11 @@ const AttractionProvider = ({ children }) => {
     const [attractions, setAttractions] = useState(null);
 
     // Function to fetch filtered attractions
-    const filterAttractions = async (continent, country, category) => {
+    const filterAttractions = async (continent, category) => {
         try {
             // Construct the query string with parameters
             const queryParams = new URLSearchParams({
                 continent: continent || '', // Default to empty string if not provided
-                country: country || '',
                 category: category || ''
             }).toString();
 

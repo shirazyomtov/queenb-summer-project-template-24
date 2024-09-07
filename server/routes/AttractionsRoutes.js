@@ -9,6 +9,7 @@ const { //createDuck,
     getAllAttractions,
     filterAttractions,
     createAttraction,
+    getUniqueValues,
  } = require('../controllers/attractionController')
 
 const router = express.Router()
@@ -20,6 +21,9 @@ router.get('/', getAllAttractions)
 router.get('/filter', filterAttractions)
 
 router.post('/create', createAttraction)
+
+router.get('/unique/:field', getUniqueValues)
+
 
 /////////////// Ducks:
 /**

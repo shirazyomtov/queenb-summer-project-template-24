@@ -30,7 +30,6 @@ const filterAttractions = async (req, res) => {
 
         // Find attractions with the dynamic filter
         const attractions = await Attraction.find(filter);
-      
         res.status(200).json(attractions);
     } catch (err) {
         res.status(400).json({mssg: 'error getting attractions', err})
@@ -48,6 +47,18 @@ const createAttraction = async (req, res) => {
         res.status(400).json({mssg: 'error creating attraction', err})
     }
 }
+
+
+const getUniqueValues = async (req, res) => {
+    try {
+        const { field } = req.params;
+        const uniqueValues = await Attraction.distinct(field);
+        res.status(200).json(uniqueValues);
+    } catch (err) {
+        res.status(400).json({mssg: 'error getting unique values of Attractions', err})
+    }
+  };
+  
 
 
 // // get all ducks
@@ -134,4 +145,5 @@ module.exports = {
     getAllAttractions,
     filterAttractions,
     createAttraction,
+    getUniqueValues,
 }

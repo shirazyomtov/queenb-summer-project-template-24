@@ -3,17 +3,17 @@ import styles from './ShowAttractions.module.css';
 import { AttractionContext } from '../../context/AttractionContext';
 import SingleAttraction from '../SingleAttraction/SingleAttraction'; 
 
-
-const ShowAttractions = () => {
+// present the attraction in home page, according to the filters
+const ShowAttractions = (continent, category) => {
   const { attractions, filterAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     
-    const fetchAttractions = async (continent, country, category) => {
+    const fetchAttractions = async () => {
       try {
         setLoading(true); // Start loading
-        await filterAttractions(continent, country, category); // Fetch attractions
+        await filterAttractions(continent, category); // Fetch attractions
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
@@ -22,7 +22,7 @@ const ShowAttractions = () => {
     };
 
     fetchAttractions();
-  }, []);
+  }, [continent, category, filterAttractions]);
 
 
   if (loading) {
