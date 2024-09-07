@@ -5,7 +5,7 @@ const SingleAttraction = ({ attraction }) => {
   if (!attraction) return null;
 
   return (
-    <div className={styles.duck}>
+    <div className={styles.attraction}>
 
       {attraction.imageUrl && (
         <img
@@ -14,8 +14,8 @@ const SingleAttraction = ({ attraction }) => {
           className={styles.img}
         />
       )}
-      <h2 className={styles.duckName}>{attraction.title}</h2>
-      <p className={styles.duckCity}>{attraction.city}, {attraction.country}</p>
+      <h2 className={styles.attractionName}>{attraction.title}</h2>
+      <p className={styles.attractionPlace}>{attraction.city}, {attraction.country}</p>
 
     </div>
   );
