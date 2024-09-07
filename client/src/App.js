@@ -1,7 +1,8 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import Home from './pages/HomePage/HomePage';
-import styles from './styles/App.module.css';
+import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/HomePage/HomePage";
+import Register from "./pages/Register/Register";
+import styles from "./styles/App.module.css";
 
 function App() {
   return (
@@ -10,12 +11,18 @@ function App() {
         <header className={styles.appHeader}>
           <img src="/project-logo.png" alt="Logo" className={styles.appLogo} />
           <nav className={styles.appNav}>
-            <Link to="/" className={styles.appLink}>Home</Link>
+            <Link to="/" className={styles.appLink}>
+              Home
+            </Link>
+            <Link to="/register" className={styles.appLink}>
+              Sign In / Register
+            </Link>
           </nav>
         </header>
         <main className={styles.main}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </main>
         <footer className={styles.footer}>
