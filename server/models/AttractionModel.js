@@ -26,16 +26,16 @@ const attractionSchema = new Schema(
     },
     country: {
       type: String,
-      required: true, 
+      required: true,
     },
     continent: {
       type: String,
-      required: true, 
+      required: true,
     },
     category: {
       type: String,
-      required: true, 
-    }
+      required: true,
+    },
   },
   {
     timestamps: true,
