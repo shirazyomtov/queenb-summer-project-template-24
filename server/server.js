@@ -2,11 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-<<<<<<< HEAD
 const AttractionsRoutes = require("./routes/AttractionsRoutes");
-=======
->>>>>>> 84e20e829e3256baf55590750012b2237efe35b9
-const rubberDucksRoutes = require("./routes/rubberDucks");
 const usersRoutes = require("./routes/users");
 
 dotenv.config();
@@ -32,7 +28,6 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/attractions", AttractionsRoutes);
-app.use("/api/rubberDucks", rubberDucksRoutes);
 app.use("/api/users", usersRoutes);
 
 // Connect to MongoDB
