@@ -24,6 +24,18 @@ const attractionSchema = new Schema(
       type: Array,
       required: true,
     },
+    country: {
+      type: String,
+      required: true, 
+    },
+    continent: {
+      type: String,
+      required: true, 
+    },
+    category: {
+      type: String,
+      required: true, 
+    }
   },
   {
     timestamps: true,
