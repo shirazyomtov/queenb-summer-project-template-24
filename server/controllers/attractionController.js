@@ -1,4 +1,5 @@
 const Attraction = require('../models/AttractionModel');
+const querystring = require('node:querystring');
 
 // get all attractions
 const getAllAttractions = async (req, res) => {
@@ -12,29 +13,69 @@ const getAllAttractions = async (req, res) => {
 
 // filter attractions
 const filterAttractions = async (req, res) => {
+    // try {    
+        // const { continents, categories } = req.query; // Extract query parameters from the URL
+        // console.log("routes continents: ", continents)
+        // console.log("routes categories: ", categories)
+
+        // // const { continents, categories } = req.body;
+
+        // // Build the query object dynamically
+        // const filter = {};
+        // if (continents) {
+        //     // Add conditions to the filter if they exist and are arrays
+        //     const continentsArray = Array.isArray(continents) ? continents : continents.array.split(',');
+        //     if (continentsArray.length > 0) {
+        //     // if (Array.isArray(continents) && continents.length > 0) {
+        //         filter.continent = { $in: continents };
+        //     }
+        // }
+        // // if (Array.isArray(countries) && countries.length > 0) {
+        // //     filter.country = { $in: countries };
+        // // }
+        // if (categories) {
+
+        //     const categoriesArray = Array.isArray(categories) ? categories : categories.split(',');
+        //     if (categoriesArray.length > 0) {
+        //     // if (Array.isArray(categories) && categories.length > 0) {
+        //         filter.category = { $in: categories };
+        //     }
+        // }
+
+        // // Find attractions with the dynamic filter
+        // const attractions = await Attraction.find(filter);
+        // res.status(200).json(attractions);
+
+        // const { categories = [] } = req.query;
+
+        // console.log(Array.isArray(categories)); // true
+
+        // const filteredAttraction = Attraction.filter((att) =>
+        //     categories.includes(att.category)
+        // );
+        // res.json(filteredAttraction);
+
     try {
-        const { continents, countries, categories } = req.body;
+        // Extract query parameters
+        const { continent, category } = req.query;
 
-        // Build the query object dynamically
+        // `continent` and `category` will be arrays if multiple values are sent
         const filter = {};
-       // Add conditions to the filter if they exist and are arrays
-        if (Array.isArray(continents) && continents.length > 0) {
-            filter.continent = { $in: continents };
+
+        if (continent) {
+            filter.continent = { $in: continent }; // `continent` is already an array
         }
-        if (Array.isArray(countries) && countries.length > 0) {
-            filter.country = { $in: countries };
-        }
-        if (Array.isArray(categories) && categories.length > 0) {
-            filter.category = { $in: categories };
+        if (category) {
+            filter.category = { $in: category }; // `category` is already an array
         }
 
-        // Find attractions with the dynamic filter
         const attractions = await Attraction.find(filter);
         res.status(200).json(attractions);
     } catch (err) {
-        res.status(400).json({mssg: 'error getting attractions', err})
+        res.status(400).json({ message: 'Error getting attractions', error: err });
     }
 }
+
 
 // create a new attraction
 const createAttraction = async (req, res) => {

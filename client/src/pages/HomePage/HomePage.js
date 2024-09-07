@@ -11,21 +11,23 @@ const Home = () => {
   });
 
   const handleFilterChange = (selectedOp) => {
-    console.log("Filter options updated:", selectedOp); // Debug log
-
-    setSelectedOptions(selectedOp)
+    // console.log("Filter options updated:", selectedOp); // Debug log
+    // setToShowAttractions(false)
+    // setSelectedOptions(selectedOp)
   }
 
-    // Initial data fetching when component mounts
-    useEffect(() => {
-      // This effect ensures that attractions are fetched initially
-      // and whenever selectedOptions change
-      setToShowAttractions(true);
+  // Initial data fetching when component mounts
+  useEffect(() => {
+    // This effect ensures that attractions are fetched initially
+    // and whenever selectedOptions change
+    setToShowAttractions(true);
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = (selectedOp) => {
+    setSelectedOptions(selectedOp)
     console.log("new options to submit: ", selectedOptions)
-    setToShowAttractions(true)
+    setToShowAttractions(false); // Temporarily set to false to trigger a re-render
+    setTimeout(() => setToShowAttractions(true), 0); // Trigger ShowAttractions again
   }
 
   return (

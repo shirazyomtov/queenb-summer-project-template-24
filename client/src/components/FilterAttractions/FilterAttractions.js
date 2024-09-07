@@ -3,7 +3,7 @@ import styles from './FilterAttractions.module.css'; // Adjust the path if neede
 // import CheckBox from '../common/FirstCheckBox/CheckBox';
 import FilterType from './FilterType';
 import api from '../../services/api';
-import ShowAttractions from '../ShowAttractions/ShowAttractions';
+// import ShowAttractions from '../ShowAttractions/ShowAttractions';
 
 const FilterAttractions = ({ onFilterChange, onSubmit }) => {
     const [selectedOptions, setSelectedOptions] = useState({
@@ -12,10 +12,10 @@ const FilterAttractions = ({ onFilterChange, onSubmit }) => {
     });
     const [continents, setContinents] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [filters, setFilters] = useState({
-        continents_filters: [],
-        categories_filters: [],
-    })
+    // const [filters, setFilters] = useState({
+    //     continents_filters: [],
+    //     categories_filters: [],
+    // })
 
     const getValues = async () => {
         try {
@@ -54,10 +54,13 @@ const FilterAttractions = ({ onFilterChange, onSubmit }) => {
                     : currentOptions.filter(option => option !== checkBoxName) // Remove value if unchecked
             };
             console.log("updatedOptions: ", updatedOptions)
-            onFilterChange(updatedOptions)
-
+            console.log("in filter com - update home selectedOptions with", checkBoxName, ": ", updatedOptions)
+            // onFilterChange(updatedOptions)
             return updatedOptions;
         });
+        // console.log("in filter com - update home selectedOptions with", checkBoxName, ": ", selectedOptions)
+        // onFilterChange(selectedOptions)
+
     };
 
 
@@ -80,7 +83,7 @@ const FilterAttractions = ({ onFilterChange, onSubmit }) => {
                 handleChange={handleChange}
             />
         )}
-        <button onClick={onSubmit}>Done</button>
+        <button onClick={() => onSubmit(selectedOptions)}>Done</button>
         {/* <ShowAttractions continent={filters.continent} category={filters.category} /> */}
 
     </div>

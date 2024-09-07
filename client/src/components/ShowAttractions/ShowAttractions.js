@@ -4,25 +4,43 @@ import { AttractionContext } from '../../context/AttractionContext';
 import SingleAttraction from '../SingleAttraction/SingleAttraction'; 
 
 // present the attraction in home page, according to the filters
-const ShowAttractions = (continent, category) => {
+const ShowAttractions = ({ continent, category }) => {
   const { attractions, filterAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
+  const [ attractionsChanged, setAttractionsChanged] = useState(true)
   
   useEffect(() => {
     
     const fetchAttractions = async () => {
       try {
         setLoading(true); // Start loading
-        await filterAttractions(continent, category); // Fetch attractions
+        // await filterAttractions(continent, category); // Fetch attractions
+        // if (continent.length > 0 || category.length > 0) {
+        //   await filterAttractions(continent, category); // Fetch attractions based on filters
+        // } else {
+        //   await filterAttractions(null, null); // Fetch attractions without filters
+        // }
+              // Fetch without filters on the first mount
+        if (!continent && !category) {
+          await filterAttractions(null, null);
+        } else {
+          // Fetch with filters
+          await filterAttractions(continent, category);
+          setAttractionsChanged(false)
+          setTimeout(() => setAttractionsChanged(true), 1);
+
+          console.log("filter att func not first render with continent:" , continent, "and category: ", category)
+        }
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
         setLoading(false); // Stop loading
+        console.log("attractions: ", attractions)
       }
     };
 
     fetchAttractions();
-  }, [continent, category, filterAttractions]);
+  }, [continent, category]); //continent, category, filterAttractions
 
 
   if (loading) {
@@ -32,9 +50,11 @@ const ShowAttractions = (continent, category) => {
 
   return (
     <div className={styles.container}>
-        {attractions.map((attraction) => (
+        {attractionsChanged && (
+        attractions.map((attraction) => (
             <SingleAttraction key={attraction._id} attraction={attraction} />
-          ))}
+          ))
+        )}
     </div>
   );
 };
