@@ -10,7 +10,10 @@
   right: 20px; /* Space from the right */
   z-index: 1000; /* Ensure it’s on top of other elements */
 }
-
+/* .scroll-container {
+    position: relative; /* Container needs relative positioning for sticky to work correctly */
+    /* padding-right: 300px; /*Ensure there's space on the right for the sticky element */
+/* } */
 .filtersTitle {
   font-size: 1.5rem;
   margin-bottom: 10px;
