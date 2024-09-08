@@ -14,13 +14,7 @@ const ShowAttractions = ({ continent, category }) => {
     const fetchAttractions = async () => {
       try {
         setLoading(true); // Start loading
-        // await filterAttractions(continent, category); // Fetch attractions
-        // if (continent.length > 0 || category.length > 0) {
-        //   await filterAttractions(continent, category); // Fetch attractions based on filters
-        // } else {
-        //   await filterAttractions(null, null); // Fetch attractions without filters
-        // }
-              // Fetch without filters on the first mount
+        // Fetch without filters on the first mount
         if (!continent && !category) {
           await filterAttractions(null, null);
         } else {
@@ -28,14 +22,11 @@ const ShowAttractions = ({ continent, category }) => {
           await filterAttractions(continent, category);
           setAttractionsChanged(false)
           setTimeout(() => setAttractionsChanged(true), 1);
-
-          console.log("filter att func not first render with continent:" , continent, "and category: ", category)
         }
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
         setLoading(false); // Stop loading
-        console.log("attractions: ", attractions)
       }
     };
 
