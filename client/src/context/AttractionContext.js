@@ -6,7 +6,10 @@ const AttractionContext = createContext();
 
 const AttractionProvider = ({ children }) => {
     const [attractions, setAttractions] = useState([]);
+    const [attractions, setAttractions] = useState([]);
 
+    // Function to fetch filtered attractions
+    const filterAttractions = async (cont, cate) => {
     // Function to fetch filtered attractions
     const filterAttractions = async (cont, cate) => {
         try {
@@ -19,13 +22,24 @@ const AttractionProvider = ({ children }) => {
             console.log("queryParams: ", queryParams)
             const response = await api.get(`/attractions/filter?${queryParams}`);
             console.log("response: ", response.data)
+            console.log("in context: continent: ", cont, "category: ", cate)
+            // Construct the query string with parameters
+            const queryParams =  qs.stringify({
+                continent: cont , // Default to empty string if not provided
+                category: cate 
+            }, );
+            console.log("queryParams: ", queryParams)
+            const response = await api.get(`/attractions/filter?${queryParams}`);
+            console.log("response: ", response.data)
             setAttractions(response.data);
         } catch (error) {
+            console.error('Error fetching attractions:', error);
             console.error('Error fetching attractions:', error);
         }
     };
 
     return (
+        <AttractionContext.Provider value={{ attractions, filterAttractions }}>
         <AttractionContext.Provider value={{ attractions, filterAttractions }}>
             {children}
         </AttractionContext.Provider>
