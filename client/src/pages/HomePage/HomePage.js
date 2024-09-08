@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styles from './Home.module.css';
-import ShowAttractions from '../../components/ShowAttractions/ShowAttractions';
-import FilterAttractions from '../../components/FilterAttractions/FilterAttractions';
+import ShowAttractions from '../../components/Attractions/ShowAttractions/ShowAttractions';
+import FilterAttractions from '../../components/Attractions/FilterAttractions/FilterAttractions';
 
 const Home = () => {
   const [ToShowAttractions, setToShowAttractions] = useState (true)
@@ -10,11 +10,6 @@ const Home = () => {
     categories_selected: []
   });
 
-  const handleFilterChange = (selectedOp) => {
-    // console.log("Filter options updated:", selectedOp); // Debug log
-    // setToShowAttractions(false)
-    // setSelectedOptions(selectedOp)
-  }
 
   // Initial data fetching when component mounts
   useEffect(() => {
@@ -33,7 +28,7 @@ const Home = () => {
   return (
     <div className={styles.home}>
       <h1 className={styles.headline}>Attractions</h1>
-      <FilterAttractions onFilterChange={handleFilterChange} onSubmit={handleSubmit}/>
+      <FilterAttractions onSubmit={handleSubmit}/>
       {ToShowAttractions && (
       <ShowAttractions 
         continent={selectedOptions.continents_selected} 
