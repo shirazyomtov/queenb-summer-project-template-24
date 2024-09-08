@@ -1,21 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import styles from './FilterAttractions.module.css'; // Adjust the path if needed
-// import CheckBox from '../common/FirstCheckBox/CheckBox';
 import FilterType from './FilterType';
-import api from '../../services/api';
-// import ShowAttractions from '../ShowAttractions/ShowAttractions';
+import api from '../../../services/api';
 
-const FilterAttractions = ({ onFilterChange, onSubmit }) => {
+const FilterAttractions = ({ onSubmit }) => {
     const [selectedOptions, setSelectedOptions] = useState({
         continents_selected: [],
         categories_selected: []
     });
     const [continents, setContinents] = useState([]);
     const [categories, setCategories] = useState([]);
-    // const [filters, setFilters] = useState({
-    //     continents_filters: [],
-    //     categories_filters: [],
-    // })
 
     const getValues = async () => {
         try {
@@ -55,12 +49,8 @@ const FilterAttractions = ({ onFilterChange, onSubmit }) => {
             };
             console.log("updatedOptions: ", updatedOptions)
             console.log("in filter com - update home selectedOptions with", checkBoxName, ": ", updatedOptions)
-            // onFilterChange(updatedOptions)
             return updatedOptions;
         });
-        // console.log("in filter com - update home selectedOptions with", checkBoxName, ": ", selectedOptions)
-        // onFilterChange(selectedOptions)
-
     };
 
 
@@ -84,7 +74,6 @@ const FilterAttractions = ({ onFilterChange, onSubmit }) => {
             />
         )}
         <button onClick={() => onSubmit(selectedOptions)}>Done</button>
-        {/* <ShowAttractions continent={filters.continent} category={filters.category} /> */}
 
     </div>
   );

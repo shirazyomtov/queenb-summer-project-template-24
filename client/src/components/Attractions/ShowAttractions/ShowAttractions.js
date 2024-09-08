@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styles from './ShowAttractions.module.css'; 
-import { AttractionContext } from '../../context/AttractionContext';
+import styles_pagination from '../../Pagination.module.css'; 
+import { AttractionContext } from '../../../context/AttractionContext';
 import SingleAttraction from '../SingleAttraction/SingleAttraction'; 
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
 const ShowAttractions = ({ continent, category }) => {
@@ -9,6 +12,16 @@ const ShowAttractions = ({ continent, category }) => {
   const [loading, setLoading] = useState(true);
   const [ attractionsChanged, setAttractionsChanged] = useState(true)
   
+  // pagination:
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(1);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  // Records to be displayed on the current page
+  const currentRecords = attractions.slice(indexOfFirstRecord, 
+                                    indexOfLastRecord);
+  const nPages = Math.ceil(attractions.length / recordsPerPage)
+
   useEffect(() => {
     
     const fetchAttractions = async () => {
@@ -32,7 +45,10 @@ const ShowAttractions = ({ continent, category }) => {
 
     fetchAttractions();
   }, [continent, category]); //continent, category, filterAttractions
-
+  
+  const handleChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   if (loading) {
     return <div>Loading attractions...</div>; // Display loading message
@@ -40,12 +56,26 @@ const ShowAttractions = ({ continent, category }) => {
   if (!attractions || attractions.length === 0) return <div>No attractions available</div>;
 
   return (
-    <div className={styles.container}>
+    <div>
+      <div className={styles.container}>
         {attractionsChanged && (
-        attractions.map((attraction) => (
+        currentRecords.map((attraction) => (
             <SingleAttraction key={attraction._id} attraction={attraction} />
           ))
         )}
+      </div>
+      <div className={styles_pagination.paginationWrapper}>
+        <Stack spacing={2}>
+          <Pagination
+            count={nPages}
+            variant="outlined" 
+            shape="rounded"
+            page={currentPage}
+            onChange={handleChange}
+            color="primary"
+          />
+        </Stack>
+      </div>
     </div>
   );
 };

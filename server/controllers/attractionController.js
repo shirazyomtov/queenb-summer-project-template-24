@@ -1,5 +1,4 @@
 const Attraction = require('../models/AttractionModel');
-const querystring = require('node:querystring');
 
 // get all attractions
 const getAllAttractions = async (req, res) => {
@@ -13,48 +12,6 @@ const getAllAttractions = async (req, res) => {
 
 // filter attractions
 const filterAttractions = async (req, res) => {
-    // try {    
-        // const { continents, categories } = req.query; // Extract query parameters from the URL
-        // console.log("routes continents: ", continents)
-        // console.log("routes categories: ", categories)
-
-        // // const { continents, categories } = req.body;
-
-        // // Build the query object dynamically
-        // const filter = {};
-        // if (continents) {
-        //     // Add conditions to the filter if they exist and are arrays
-        //     const continentsArray = Array.isArray(continents) ? continents : continents.array.split(',');
-        //     if (continentsArray.length > 0) {
-        //     // if (Array.isArray(continents) && continents.length > 0) {
-        //         filter.continent = { $in: continents };
-        //     }
-        // }
-        // // if (Array.isArray(countries) && countries.length > 0) {
-        // //     filter.country = { $in: countries };
-        // // }
-        // if (categories) {
-
-        //     const categoriesArray = Array.isArray(categories) ? categories : categories.split(',');
-        //     if (categoriesArray.length > 0) {
-        //     // if (Array.isArray(categories) && categories.length > 0) {
-        //         filter.category = { $in: categories };
-        //     }
-        // }
-
-        // // Find attractions with the dynamic filter
-        // const attractions = await Attraction.find(filter);
-        // res.status(200).json(attractions);
-
-        // const { categories = [] } = req.query;
-
-        // console.log(Array.isArray(categories)); // true
-
-        // const filteredAttraction = Attraction.filter((att) =>
-        //     categories.includes(att.category)
-        // );
-        // res.json(filteredAttraction);
-
     try {
         // Extract query parameters
         const { continent, category } = req.query;
@@ -76,7 +33,6 @@ const filterAttractions = async (req, res) => {
     }
 }
 
-
 // create a new attraction
 const createAttraction = async (req, res) => {
     const {title,city,imageUrl,description,recommendations,category,country,continent} = req.body;
@@ -89,7 +45,6 @@ const createAttraction = async (req, res) => {
     }
 }
 
-
 const getUniqueValues = async (req, res) => {
     try {
         const { field } = req.params;
@@ -101,7 +56,7 @@ const getUniqueValues = async (req, res) => {
   };
   
 
-
+// Ducks:
 // // get all ducks
 // const getAllDucks = async (req, res) => {
 //     try {
@@ -177,12 +132,6 @@ const getUniqueValues = async (req, res) => {
 
 
 module.exports = {
-    // getAllDucks,
-    // getSingleDuck,
-    // createDuck,
-    // deleteDuck,
-    // updateDuck,
-    // getRandomDuck,
     getAllAttractions,
     filterAttractions,
     createAttraction,

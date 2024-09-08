@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './FilterAttractions.module.css'; // Adjust the path if needed
-import CheckBox from '../common/FirstCheckBox/CheckBox';
+import CheckBox from '../../common/FirstCheckBox/CheckBox';
 
 const FilterType = ({ type, options, selectedOptions, handleChange }) => {
-
 
     return(
         <div>

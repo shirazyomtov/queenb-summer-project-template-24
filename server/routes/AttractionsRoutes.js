@@ -1,11 +1,5 @@
 const express = require('express');
-const { //createDuck,
-    // getAllDucks,
-    // getSingleDuck,
-    // deleteDuck,
-    // updateDuck,
-    // getRandomDuck,
-    getAllAttractions,
+const { getAllAttractions,
     filterAttractions,
     createAttraction,
     getUniqueValues,
@@ -23,19 +17,6 @@ router.post('/create', createAttraction)
 
 router.get('/unique/:field', getUniqueValues)
 
-
-/////////////// Ducks:
-/**
- * Read Only Permission Routes
- */
-// GET all ducks
-// router.get('/', getAllDucks)
-
-// // GET a random duck
-// router.get('/random', getRandomDuck);
-
-// // GET a single duck
-// router.get('/:id', getSingleDuck)
 
 
 /**
