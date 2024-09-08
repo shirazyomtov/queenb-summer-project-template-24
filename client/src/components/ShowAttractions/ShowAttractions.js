@@ -6,15 +6,10 @@ import SingleAttraction from '../SingleAttraction/SingleAttraction';
 // present the attraction in home page, according to the filters
 const ShowAttractions = ({ continent, category }) => {
   const { attractions, filterAttractions } = useContext(AttractionContext);
-// present the attraction in home page, according to the filters
-const ShowAttractions = ({ continent, category }) => {
-  const { attractions, filterAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
-  const [ attractionsChanged, setAttractionsChanged] = useState(true)
   const [ attractionsChanged, setAttractionsChanged] = useState(true)
   
   useEffect(() => {
-    
     
     const fetchAttractions = async () => {
       try {
@@ -27,20 +22,15 @@ const ShowAttractions = ({ continent, category }) => {
           await filterAttractions(continent, category);
           setAttractionsChanged(false)
           setTimeout(() => setAttractionsChanged(true), 1);
-
-          console.log("filter att func not first render with continent:" , continent, "and category: ", category)
         }
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
         setLoading(false); // Stop loading
-        console.log("attractions: ", attractions)
-        console.log("attractions: ", attractions)
       }
     };
 
     fetchAttractions();
-  }, [continent, category]); //continent, category, filterAttractions
   }, [continent, category]); //continent, category, filterAttractions
 
 
@@ -51,11 +41,6 @@ const ShowAttractions = ({ continent, category }) => {
 
   return (
     <div className={styles.container}>
-        {attractionsChanged && (
-        attractions.map((attraction) => (
-            <SingleAttraction key={attraction._id} attraction={attraction} />
-          ))
-        )}
         {attractionsChanged && (
         attractions.map((attraction) => (
             <SingleAttraction key={attraction._id} attraction={attraction} />

@@ -62,13 +62,11 @@
 }
 
 .attractionName {
-.attractionName {
   font-size: 24px;
   font-weight: bold;
   color: #333;
 }
 
-.attractionPlace {
 .attractionPlace {
   font-size: 1rem;
   color: #666;
