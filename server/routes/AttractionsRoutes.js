@@ -1,29 +1,29 @@
-const express = require('express');
-const { //createDuck,
-    // getAllDucks,
-    // getSingleDuck,
-    // deleteDuck,
-    // updateDuck,
-    // getRandomDuck,
-    // getLastFiveAttractions,
-    getAllAttractions,
-    filterAttractions,
-    createAttraction,
-    getUniqueValues,
- } = require('../controllers/attractionController')
+const express = require("express");
+const {
+  //createDuck,
+  // getAllDucks,
+  // getSingleDuck,
+  // deleteDuck,
+  // updateDuck,
+  // getRandomDuck,
+  // getLastFiveAttractions,
+  getAllAttractions,
+  filterAttractions,
+  createAttraction,
+  getUniqueValues,
+} = require("../controllers/attractionController");
 
-const router = express.Router()
+const router = express.Router();
 
 ///////////// Attractions:
 // GET all Attractions
-router.get('/', getAllAttractions)
+router.get("/", getAllAttractions);
 
-router.get('/filter', filterAttractions)
+router.get("/filter", filterAttractions);
 
-router.post('/create', createAttraction)
+router.post("/create", createAttraction);
 
-router.get('/unique/:field', getUniqueValues)
-
+router.get("/unique/:field", getUniqueValues);
 
 /////////////// Ducks:
 /**
@@ -38,7 +38,6 @@ router.get('/unique/:field', getUniqueValues)
 // // GET a single duck
 // router.get('/:id', getSingleDuck)
 
-
 /**
  * Read and Write Permission Routes
  */
@@ -51,4 +50,4 @@ router.get('/unique/:field', getUniqueValues)
 // // UPDATE a duck
 // router.patch('/:id', updateDuck)
 
-module.exports = router
+module.exports = router;
