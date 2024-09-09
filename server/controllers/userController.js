@@ -33,6 +33,30 @@ const createUser = async (req, res) => {
   }
 };
 
+// sign in with email and password
+const signIn = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email }); //find user by email
+    if (user == null) {
+      // user was not found
+      res.status(400).json({ mssg: "error finding user", err });
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+      // check if the password matches
+      res
+        .status(200)
+        .json({ userName: user.userName, profilePic: user.profilePicUrl });
+    } else {
+      res.status(400).json({ mssg: "invalid password" });
+    }
+  } catch (err) {
+    res.status(400).json({ mssg: "error logging in", err });
+  }
+};
+
 /* update a user
 const updateUser = async (req, res) => {
   const { id } = req.params;
@@ -53,4 +77,5 @@ const updateUser = async (req, res) => {
 module.exports = {
   createUser,
   getSingleUser,
+  signIn,
 };
