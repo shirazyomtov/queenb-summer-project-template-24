@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/HomePage/HomePage";
 import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
 import styles from "./styles/App.module.css";
 
 function App() {
@@ -14,8 +15,8 @@ function App() {
             <Link to="/" className={styles.appLink}>
               Home
             </Link>
-            <Link to="/register" className={styles.appLink}>
-              Sign In / Register
+            <Link to="/login" className={styles.appLink}>
+              Log In / Register
             </Link>
           </nav>
         </header>
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
         <footer className={styles.footer}>
