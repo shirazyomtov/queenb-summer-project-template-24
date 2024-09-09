@@ -1,15 +1,5 @@
 const express = require("express");
 const {
-<<<<<<< HEAD
-=======
-  //createDuck,
-  // getAllDucks,
-  // getSingleDuck,
-  // deleteDuck,
-  // updateDuck,
-  // getRandomDuck,
-  // getLastFiveAttractions,
->>>>>>> 12988af6874873174b2c371ab4796bf3c35f16ff
   getAllAttractions,
   filterAttractions,
   createAttraction,
@@ -19,19 +9,11 @@ const {
 const router = express.Router();
 
 ///////////// Attractions:
-<<<<<<< HEAD
 
 router.get("/", getAllAttractions);
 
 router.get("/filter", filterAttractions);
 
-=======
-// GET all Attractions
-router.get("/", getAllAttractions);
-
-router.get("/filter", filterAttractions);
-
->>>>>>> 12988af6874873174b2c371ab4796bf3c35f16ff
 router.post("/create", createAttraction);
 
 router.get("/unique/:field", getUniqueValues);
