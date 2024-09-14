@@ -7,10 +7,9 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
-const ShowAttractions = ({ continent, category }) => {
+const ShowAttractions = ({ continent, category, title }) => {
   const { attractions, filterAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
-  const [ attractionsChanged, setAttractionsChanged] = useState(true)
   
   // pagination:
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,13 +27,15 @@ const ShowAttractions = ({ continent, category }) => {
       try {
         setLoading(true); // Start loading
         // Fetch without filters on the first mount
-        if (!continent && !category) {
+        if (!continent && !category && !title) {
           await filterAttractions(null, null);
-        } else {
+        } 
+        else if (title){
+          await filterAttractions(null, null, title);
+        }
+        else {
           // Fetch with filters
-          await filterAttractions(continent, category);
-          setAttractionsChanged(false)
-          setTimeout(() => setAttractionsChanged(true), 1);
+          await filterAttractions(continent, category, title);
         }
       } catch (error) {
         console.error('Error fetching attractions:', error);
@@ -58,11 +59,9 @@ const ShowAttractions = ({ continent, category }) => {
   return (
     <div>
       <div className={styles.container}>
-        {attractionsChanged && (
-        currentRecords.map((attraction) => (
+        {currentRecords.map((attraction) => (
             <SingleAttraction key={attraction._id} attraction={attraction} />
-          ))
-        )}
+          ))}
       </div>
       <div className={styles_pagination.paginationWrapper}>
         <Stack spacing={2}>
