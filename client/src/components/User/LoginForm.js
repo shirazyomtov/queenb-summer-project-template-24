@@ -21,7 +21,7 @@ const LoginForm = () => {
       setError(json.error);
     } else {
       const name = json.userName;
-      const profilePic = json.profilePic;
+      // const profilePic = json.profilePic;
       setEmail("");
       setPassword("");
       alert("Welcome " + name);
