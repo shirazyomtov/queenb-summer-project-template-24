@@ -14,7 +14,7 @@ const ShowAttractions = ({ continent, category }) => {
   
   // pagination:
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(1);
+  const [recordsPerPage] = useState(3);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   // Records to be displayed on the current page
