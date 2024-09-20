@@ -14,8 +14,22 @@ const getAllAttractions = async (req, res) => {
 const filterAttractions = async (req, res) => {
     try {
         // Extract query parameters
-        const { continent, category } = req.query;
-
+        const { continent, category, title } = req.query;
+        if (title) {
+            let attractions;
+            if (title.length === 0) {
+                attractions = await Attraction.find();
+            } else {
+                attractions = await Attraction.find({
+                    title: { 
+                        $regex: title,
+                        $options: "i"
+                    }
+                });
+            }
+            return res.status(200).json(attractions); // Use return here
+        }
+        
         // `continent` and `category` will be arrays if multiple values are sent
         const filter = {};
 
@@ -25,9 +39,9 @@ const filterAttractions = async (req, res) => {
         if (category) {
             filter.category = { $in: category }; // `category` is already an array
         }
-
         const attractions = await Attraction.find(filter);
         res.status(200).json(attractions);
+        
     } catch (err) {
         res.status(400).json({ message: 'Error getting attractions', error: err });
     }

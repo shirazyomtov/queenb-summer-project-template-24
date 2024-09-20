@@ -8,12 +8,13 @@ const AttractionProvider = ({ children }) => {
     const [attractions, setAttractions] = useState([]);
 
     // Function to fetch filtered attractions
-    const filterAttractions = async (cont, cate) => {
+    const filterAttractions = async (cont, cate, title) => {
         try {
             // Construct the query string with parameters
             const queryParams =  qs.stringify({
                 continent: cont , // Default to empty string if not provided
-                category: cate 
+                category: cate ,
+                title: title
             }, );
             const response = await api.get(`/attractions/filter?${queryParams}`);
             setAttractions(response.data);
