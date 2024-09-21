@@ -11,9 +11,9 @@ const FilterType = ({ type, options, selectedOptions, handleChange }) => {
                 <CheckBox
                     key={op} // Unique key for each checkbox
                     checkBoxName={op}
-                    filterType={`${type}_selected`}
+                    filterType={`${type}`}
                     selectedOptions={selectedOptions}
-                    handleChange={(e)=>handleChange(e, `${type}_selected`, op)}
+                    handleChange={(e)=>handleChange(e, `${type}`, op)}
                 />
             ))}
         </div>

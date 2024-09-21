@@ -1,26 +1,14 @@
-import React, {useState, useEffect, useMemo, useCallback} from 'react';
+import React, {useState, useEffect, useMemo, useCallback, useContext} from 'react';
 import api from '../../../services/api'; 
 import styles from './SearchAttraction.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete, TextField, InputAdornment } from '@mui/material';
-import { fetchAttractions } from "../../../services/utils";
+import { AttractionContext } from '../../../context/AttractionContext';
 
 
-const Search = ({ handleSearch}) => {
+const Search = () => {
     const [query, setQuery] = useState("");
-    const [ attractions, setAttractions ] = useState([]);
-    const handleFetchAttractions = useCallback(async () => {
-      try {
-        const data = await fetchAttractions();
-        setAttractions(data);
-      } catch (error) {
-        console.error("Error fetching attractions:", error);
-      }
-    }, []);
-      
-    useEffect(() => {
-      handleFetchAttractions();
-    }, [handleFetchAttractions]);
+    const { attractions, setFilterValuesAttractions } = useContext(AttractionContext);
 
     const namesOfAttractions = useMemo(() => {
       return attractions.map(attraction =>{
@@ -32,7 +20,11 @@ const Search = ({ handleSearch}) => {
         setQuery(newValue || "");
     };
     const changeDisplay = () => {
-        handleSearch(query);
+      setFilterValuesAttractions({
+        continents: [],
+        categories: [],
+        title: query
+      });
     }
 
     const handleOnkeydown = (event) => {
@@ -40,7 +32,6 @@ const Search = ({ handleSearch}) => {
             changeDisplay();
         }
     }
-
 
     return (
         <div className={styles.search}>
