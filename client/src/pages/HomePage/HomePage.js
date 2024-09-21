@@ -3,10 +3,6 @@ import styles from './Home.module.css';
 import ShowAttractions from '../../components/Attractions/ShowAttractions/ShowAttractions';
 import FilterAttractions from '../../components/Attractions/FilterAttractions/FilterAttractions';
 import SearchAttraction from '../../components/Attractions/SearchAttraction/SearchAttraction';
-import React, { useState, useEffect } from "react";
-import styles from "./Home.module.css";
-import ShowAttractions from "../../components/Attractions/ShowAttractions/ShowAttractions";
-import FilterAttractions from "../../components/Attractions/FilterAttractions/FilterAttractions";
 import UploadDataButton from "../../components/UploadData/UploadDataButton";
 
 const Home = () => {
