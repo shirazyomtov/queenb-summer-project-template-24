@@ -7,36 +7,28 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
-const ShowAttractions = ({ continent, category, title }) => {
-  const { attractions, filterAttractions } = useContext(AttractionContext);
+const ShowAttractions = () => {
+  const {filterValuesAttractions, getAttractions } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
   
-  // pagination:
+  // pagination: 
+  let currAttractions = getAttractions();
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(1);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   // Records to be displayed on the current page
-  const currentRecords = attractions.slice(indexOfFirstRecord, 
+  const currentRecords = currAttractions.slice(indexOfFirstRecord, 
                                     indexOfLastRecord);
-  const nPages = Math.ceil(attractions.length / recordsPerPage)
+  // console.log('currentRecords changed ' + JSON.stringify(currAttractions, null, 2));
+  const nPages = Math.ceil(currAttractions.length / recordsPerPage)
 
   useEffect(() => {
     
     const fetchAttractions = async () => {
       try {
         setLoading(true); // Start loading
-        // Fetch without filters on the first mount
-        if (!continent && !category && !title) {
-          await filterAttractions(null, null);
-        } 
-        else if (title){
-          await filterAttractions(null, null, title);
-        }
-        else {
-          // Fetch with filters
-          await filterAttractions(continent, category, title);
-        }
+        currAttractions = getAttractions();
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
@@ -45,8 +37,8 @@ const ShowAttractions = ({ continent, category, title }) => {
     };
 
     fetchAttractions();
-  }, [continent, category]); //continent, category, filterAttractions
-  
+  }, [filterValuesAttractions]);
+
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -54,7 +46,7 @@ const ShowAttractions = ({ continent, category, title }) => {
   if (loading) {
     return <div>Loading attractions...</div>; // Display loading message
   }
-  if (!attractions || attractions.length === 0) return <div>No attractions available</div>;
+  if (!currAttractions || currAttractions.length === 0) return <div>No attractions available</div>;
 
   return (
     <div>
