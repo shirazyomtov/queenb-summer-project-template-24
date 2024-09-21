@@ -3,9 +3,14 @@ import styles from './Home.module.css';
 import ShowAttractions from '../../components/Attractions/ShowAttractions/ShowAttractions';
 import FilterAttractions from '../../components/Attractions/FilterAttractions/FilterAttractions';
 import SearchAttraction from '../../components/Attractions/SearchAttraction/SearchAttraction';
+import React, { useState, useEffect } from "react";
+import styles from "./Home.module.css";
+import ShowAttractions from "../../components/Attractions/ShowAttractions/ShowAttractions";
+import FilterAttractions from "../../components/Attractions/FilterAttractions/FilterAttractions";
+import UploadDataButton from "../../components/UploadData/UploadDataButton";
 
 const Home = () => {
-  const [ToShowAttractions, setToShowAttractions] = useState (true)
+  const [ToShowAttractions, setToShowAttractions] = useState(true);
   const [selectedOptions, setSelectedOptions] = useState({
     continents_selected: [],
     categories_selected: [],
@@ -20,11 +25,11 @@ const Home = () => {
   }, []);
 
   const handleSubmit = (selectedOp) => {
-    setSelectedOptions(selectedOp)
-    console.log("new options to submit: ", selectedOptions)
+    setSelectedOptions(selectedOp);
+    console.log("new options to submit: ", selectedOptions);
     setToShowAttractions(false); // Temporarily set to false to trigger a re-render
     setTimeout(() => setToShowAttractions(true), 0); // Trigger ShowAttractions again
-  }
+  };
 
   const handleSearch = (selectedName) => {
     setSelectedOptions({
@@ -48,7 +53,8 @@ const Home = () => {
         title={selectedOptions.name_selected}
       />
       )}
-      
+
+      <UploadDataButton />
     </div>
   );
 };

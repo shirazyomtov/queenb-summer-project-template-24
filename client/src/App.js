@@ -5,6 +5,7 @@ import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import styles from "./styles/App.module.css";
 import AttractionOverviewPage from "./pages/AttractionOverviewPage/AttractionOverviewPage";
+import UploadDataPage from "./pages/UploadDataPage/UploadDataPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/attraction" element={<AttractionOverviewPage/>} />
+            <Route path="/upload" element={<UploadDataPage/>} />
           </Routes>
         </main>
         <footer className={styles.footer}>
