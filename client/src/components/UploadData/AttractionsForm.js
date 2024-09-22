@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./AttractionsForm.css";
 import axiosInstance from "../../services/api";
+import { AttractionContext } from '../../context/AttractionContext';
 
 const AttractionForm = () => {
+  const { addNewAttraction } = useContext(AttractionContext);
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -45,7 +47,7 @@ const AttractionForm = () => {
         "/attractions/create",
         attraction
       );
-
+      addNewAttraction(attraction);
       const res = response.data;
 
       handleReset();
