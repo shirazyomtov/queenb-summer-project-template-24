@@ -9,7 +9,6 @@ import Stack from '@mui/material/Stack';
 // present the attraction in home page, according to the filters
 const ShowAttractions = () => {
   const {getFilteredAttractions, chosenSort } = useContext(AttractionContext);
-
   // pagination: 
   const currAttractions = getFilteredAttractions();
   const [currentPage, setCurrentPage] = useState(1);
