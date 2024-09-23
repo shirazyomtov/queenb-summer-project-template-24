@@ -5,6 +5,7 @@ const AttractionContext = createContext();
 const AttractionProvider = ({ children }) => {
     const [attractions, setAttractions] = useState([]);
     const [filterValuesAttractions, setFilterValuesAttractions] = useState({});
+    const [chosenSort, setChosenSort] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,7 +20,7 @@ const AttractionProvider = ({ children }) => {
     }, []);
     
     const getAttractions = () => {
-        const res = attractions.filter((attraction) => {
+        let res = attractions.filter((attraction) => {
             const { continents = [], categories = [], title = '' } = filterValuesAttractions;
 
             if (continents.length === 0 && categories.length === 0) {
@@ -33,12 +34,24 @@ const AttractionProvider = ({ children }) => {
                 );
             }
         });
+        // sorting
+        if (chosenSort === 'title') {
+            // Sort by title
+            res = res.sort((a, b) => {
+                return a.title.localeCompare(b.title);
+            });
 
+        } else if (chosenSort === 'continent') {
+            // Sort by continent
+            res = res.sort((a, b) => {
+                return a.continent.localeCompare(b.continent);
+            });
+        }
         return res;
     };
 
     return (
-        <AttractionContext.Provider value={{ attractions, filterValuesAttractions, setFilterValuesAttractions, getAttractions }}>
+        <AttractionContext.Provider value={{ attractions, filterValuesAttractions, setFilterValuesAttractions, getAttractions, chosenSort, setChosenSort }}>
             {children}
         </AttractionContext.Provider>
     );

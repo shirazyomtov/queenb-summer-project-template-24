@@ -6,7 +6,7 @@ const FilterType = ({ type, options, selectedOptions, handleChange }) => {
 
     return(
         <div>
-            <h3 className={styles.filterTypeTitle}>{type.charAt(0).toUpperCase() + type.slice(1)}:</h3>
+            <h3 className={styles.filterType}>{type.charAt(0).toUpperCase() + type.slice(1)}:</h3>
             {options.map((op) => (
                 <CheckBox
                     key={op} // Unique key for each checkbox
