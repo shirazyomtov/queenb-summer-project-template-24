@@ -40,8 +40,6 @@ const AttractionForm = () => {
       continent,
     };
 
-    console.log(attraction);
-
     try {
       const response = await axiosInstance.post(
         "/attractions/create",
@@ -52,7 +50,6 @@ const AttractionForm = () => {
 
       handleReset();
       setError(null);
-      console.log("new attraction added", res);
     } catch (error) {
       console.error("Error adding attraction:", error);
       setError("Failed to add attraction");

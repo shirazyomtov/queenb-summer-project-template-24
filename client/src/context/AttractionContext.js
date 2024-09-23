@@ -19,7 +19,7 @@ const AttractionProvider = ({ children }) => {
     }, []);
     
     const getFilteredAttractions = () => {
-        const res = attractions.filter((attraction) => {
+        return attractions.filter((attraction) => {
             const { continents = [], categories = [], title = '' } = filterValuesAttractions;
 
             if (continents.length === 0 && categories.length === 0) {
@@ -33,8 +33,6 @@ const AttractionProvider = ({ children }) => {
                 );
             }
         });
-
-        return res;
     };
 
     const addNewAttraction = (attraction) => {

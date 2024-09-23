@@ -8,8 +8,7 @@ import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
 const ShowAttractions = () => {
-  const {attractions, filterValuesAttractions, getFilteredAttractions } = useContext(AttractionContext);
-  const [loading, setLoading] = useState(true);
+  const {getFilteredAttractions } = useContext(AttractionContext);
   
   // pagination: 
   let currAttractions = getFilteredAttractions();
@@ -23,29 +22,9 @@ const ShowAttractions = () => {
   // console.log('currentRecords changed ' + JSON.stringify(currAttractions, null, 2));
   const nPages = Math.ceil(currAttractions.length / recordsPerPage)
 
-  useEffect(() => {
-    
-    const fetchAttractions = async () => {
-      try {
-        setLoading(true); // Start loading
-        currAttractions = getFilteredAttractions();
-      } catch (error) {
-        console.error('Error fetching attractions:', error);
-      } finally {
-        setLoading(false); // Stop loading
-      }
-    };
-
-    fetchAttractions();
-  }, [filterValuesAttractions, attractions]);
-
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
-
-  if (loading) {
-    return <div>Loading attractions...</div>; // Display loading message
-  }
   if (!currAttractions || currAttractions.length === 0) return <div>No attractions available</div>;
 
   return (
