@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './ShowAttractions.module.css'; 
 import styles_pagination from '../../Pagination.module.css'; 
 import { AttractionContext } from '../../../context/AttractionContext';
