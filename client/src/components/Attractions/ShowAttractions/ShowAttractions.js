@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './ShowAttractions.module.css'; 
 import styles_pagination from '../../Pagination.module.css'; 
 import { AttractionContext } from '../../../context/AttractionContext';
@@ -11,7 +11,7 @@ const ShowAttractions = () => {
   const {getFilteredAttractions } = useContext(AttractionContext);
   
   // pagination: 
-  let currAttractions = getFilteredAttractions();
+  const currAttractions = getFilteredAttractions();
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(1);
   const indexOfLastRecord = currentPage * recordsPerPage;
