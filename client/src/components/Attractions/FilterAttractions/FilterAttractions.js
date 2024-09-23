@@ -1,26 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styles from './FilterAttractions.module.css'; // Adjust the path if needed
 import FilterType from './FilterType';
-import api from '../../../services/api';
+import {fetchFilterValues} from '../../../services/utils';
+import { AttractionContext } from '../../../context/AttractionContext';
 
-const FilterAttractions = ({ onSubmit }) => {
-    const [selectedOptions, setSelectedOptions] = useState({
-        continents_selected: [],
-        categories_selected: []
-    });
+const FilterAttractions = () => {
+    const {filterValuesAttractions, setFilterValuesAttractions} = useContext(AttractionContext);
+    const { title, ...options } = filterValuesAttractions;
+    const [selectedOptions, setSelectedOptions] = useState(options);
     const [continents, setContinents] = useState([]);
     const [categories, setCategories] = useState([]);
 
     const getValues = async () => {
         try {
-            const [continentsResponse, categoriesResponse] = await Promise.all([
-                api.get(`/attractions/unique/continent`),
-                api.get(`/attractions/unique/category`)
-            ]);
+            const { continents, categories } = await fetchFilterValues();
 
-            setContinents(continentsResponse.data);
-            setCategories(categoriesResponse.data);
-
+            setContinents(continents);
+            setCategories(categories);
         } catch (error) {
             console.error('Error fetching filter values:', error);
         }
@@ -28,7 +24,16 @@ const FilterAttractions = ({ onSubmit }) => {
 
     useEffect(() => {
         getValues()
+        setFilterValuesAttractions((prevOptions) => ({
+            ...prevOptions,
+            continents: [],
+            categories: [],
+        }))
     }, []);
+
+    useEffect(() => {
+        setSelectedOptions(options);
+    }, [filterValuesAttractions]);
 
     const handleChange = (event, filterType, checkBoxName) => {
         const { checked } = event.target;
@@ -73,7 +78,13 @@ const FilterAttractions = ({ onSubmit }) => {
                 handleChange={handleChange}
             />
         )}
-        <button onClick={() => onSubmit(selectedOptions)}>Done</button>
+        <button onClick={() => {
+            setFilterValuesAttractions(prevOptions => ({
+            ...prevOptions,
+            ...selectedOptions,
+        }))}}>
+            Done
+        </button>
 
     </div>
   );
