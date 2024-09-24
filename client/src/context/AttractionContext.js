@@ -41,12 +41,30 @@ const AttractionProvider = ({ children }) => {
                 return a.title.localeCompare(b.title);
             });
 
-        } else if (chosenSort === 'continent') {
+        } else if (chosenSort === 'country') {
             // Sort by continent
             res = res.sort((a, b) => {
-                return a.continent.localeCompare(b.continent);
+                return a.country.localeCompare(b.country);
             });
         }
+
+
+        else if (chosenSort === 'rating') {
+            // Sort by recommendations, assuming the recommendation is in format "10/10"
+            res = res.sort((a, b) => {
+                console.log(typeof a.recommendations)
+                console.log(a.recommendations)
+
+                const recA = parseInt(a.recommendations[0].split('/')[0], 10); // Extract the number before the slash in a.recommendation[0]
+                const recB = parseInt(b.recommendations[0].split('/')[0], 10); // Extract the number before the slash in b.recommendation[0]
+                return recB - recA; // Sort in descending order (higher recommendations first)
+            });
+        }
+        
+        // else if (chosenSort === 'newest') {
+        //     res = res.sort((a, b) =>  b.createdAt - a.createdAt ); // Newest first
+        // }
+        
         return res;
     };
 

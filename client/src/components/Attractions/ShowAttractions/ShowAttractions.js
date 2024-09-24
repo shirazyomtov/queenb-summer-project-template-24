@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
 const ShowAttractions = () => {
-  const { filterValuesAttractions, getAttractions } = useContext(AttractionContext);
+  const { filterValuesAttractions, getAttractions, chosenSort } = useContext(AttractionContext);
   const [loading, setLoading] = useState(true);
   
   // pagination: 
@@ -29,7 +29,7 @@ const ShowAttractions = () => {
       try {
         setLoading(true); // Start loading
         currAttractions = getAttractions();
-        setCurrentPage(1)
+        setCurrentPage(1) // every time the filters/sorting changes - go to the first page
       } catch (error) {
         console.error('Error fetching attractions:', error);
       } finally {
@@ -38,7 +38,7 @@ const ShowAttractions = () => {
     };
 
     fetchAttractions();
-  }, [filterValuesAttractions]);
+  }, [filterValuesAttractions, chosenSort]);
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
