@@ -21,13 +21,18 @@ const createUser = async (req, res) => {
   const { userName, email, password, profilePicUrl } = req.body;
   const salt = await bcrypt.genSalt(); //for password encryption
   try {
-    const user = await User.create({
-      userName,
-      email,
-      password: await bcrypt.hash(password, salt),
-      profilePicUrl,
-    });
-    res.status(200).json({ user });
+    const user_exists = await User.findOne({ email });
+    if (!user_exists) {
+      const user = await User.create({
+        userName,
+        email,
+        password: await bcrypt.hash(password, salt),
+        profilePicUrl,
+      });
+      res.status(200).json({ user });
+    } else {
+      res.status(400).json({ mssg: "user already exists", err });
+    }
   } catch (err) {
     res.status(400).json({ mssg: "error creating user", err });
   }
