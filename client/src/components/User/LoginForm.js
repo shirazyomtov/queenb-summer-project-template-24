@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { updateAuthState } = useContext(AuthContext);
 
   // fetch the data of the user (email and password) after clicking the "Login" button
   const handleSubmit = async (e) => {
@@ -21,7 +23,8 @@ const LoginForm = () => {
       setError("Incorrect username or password");
     } else {
       const name = json.userName;
-      //const profilePic = json.profilePic;
+      const profilePic = json.profilePic;
+      updateAuthState(name, profilePic);
       setEmail("");
       setPassword("");
       alert("Welcome " + name);

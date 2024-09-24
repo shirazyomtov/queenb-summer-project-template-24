@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Attraction = require('../models/AttractionModel'); 
-
+const mongoose = require("mongoose");
+const Attraction = require("../models/AttractionModel");
 
 const addAttraction = async () => {
   try {
@@ -9,12 +8,13 @@ const addAttraction = async () => {
       _id: new mongoose.Types.ObjectId(), // Generate a new ObjectId if not manually specified
       title: "Kai",
       city: "Bangkok",
-      imageUrl: "https://lh3.googleusercontent.com/p/AF1QipMfaEyHlyrgMS3Rls3A7CeiiYd_FdiWbIeeZnxF=s1360-w1360-h1020",
+      imageUrl:
+        "https://lh3.googleusercontent.com/p/AF1QipMfaEyHlyrgMS3Rls3A7CeiiYd_FdiWbIeeZnxF=s1360-w1360-h1020",
       description: "amazing restaurant",
       recommendations: ["8/10"],
       category: "Restaurants",
       country: "New Zealand",
-      continent: "Oceania"
+      continent: "Oceania",
     });
 
     // Save the document to the database
