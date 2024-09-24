@@ -14,11 +14,12 @@
 .filtersTitle {
   font-size: 1.5rem;
   margin-bottom: 10px;
+  margin-top: 70px;
 }
 
 .filterType {
   font-size: 1.2rem;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .content {

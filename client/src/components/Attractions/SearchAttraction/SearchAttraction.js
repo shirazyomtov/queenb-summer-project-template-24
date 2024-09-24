@@ -1,5 +1,4 @@
-import React, {useState, useEffect, useMemo, useCallback, useContext} from 'react';
-import api from '../../../services/api'; 
+import React, {useState, useMemo, useContext} from 'react';
 import styles from './SearchAttraction.module.css'
 import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete, TextField, InputAdornment } from '@mui/material';
