@@ -18,7 +18,7 @@ const LoginForm = () => {
     const json = await response.json(); //contains the userName and profilePic URL
 
     if (!response.ok) {
-      setError(json.error);
+      setError("Incorrect username or password");
     } else {
       const name = json.userName;
       //const profilePic = json.profilePic;
@@ -53,8 +53,8 @@ const LoginForm = () => {
         value={password}
       />
       <br />
-      <button>Login</button>
       {error && <div className="error">{error}</div>}
+      <button>Login</button>
     </form>
   );
 };

@@ -11,6 +11,23 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = { userName, email, password, profilePicURL };
+
+    //check if password meets the criteria - at least 8 characters, numbers letters capital case and a sign
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setError("Password must contain at least one capital letter");
+      return;
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>~[\]\\/'`_+=-]/.test(password)) {
+      setError("Password must contain at least one spacial symbol");
+      return;
+    }
+
     const response = await fetch("http://localhost:5000/api/users", {
       method: "POST",
       body: JSON.stringify(user),
@@ -19,7 +36,7 @@ const UserForm = () => {
     const json = await response.json();
 
     if (!response.ok) {
-      setError(json.error);
+      setError(json.mssg);
     } else {
       setUserName("");
       setEmail("");
