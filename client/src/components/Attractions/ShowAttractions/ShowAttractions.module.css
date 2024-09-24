@@ -3,13 +3,14 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
   gap: 16px; 
   padding: 16px;
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   position: relative;
+
+  width: 60%; /* Set the width to 80% of the screen */  
+  height: 60%;
+  margin: 0 auto; /* Center the container horizontally */
+  margin-bottom: 20px;
 }
 
 .title {
@@ -49,12 +50,10 @@
 .img {
   width: 180px;
   height: 170px;
-  border-radius: 10px;
   margin-top: 10px;
-  width: 180px;
-  height: 170px;
+  /* width: 180px;
+  height: 170px; */
   border-radius: 10px;
-  margin-top: 10px;
 }
 
 .attractionName {
