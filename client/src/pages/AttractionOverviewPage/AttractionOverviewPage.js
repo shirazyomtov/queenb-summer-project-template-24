@@ -6,7 +6,6 @@ const AttractionOverviewPage = () => {
   const location = useLocation();
   const { attraction } = location.state || {};
   const {
-    _id,
     title,
     city,
     imageUrl,

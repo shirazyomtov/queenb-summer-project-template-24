@@ -3,6 +3,7 @@ import styles from './FilterAttractions.module.css'; // Adjust the path if neede
 import FilterType from './FilterType';
 import {fetchFilterValues} from '../../../services/utils';
 import { AttractionContext } from '../../../context/AttractionContext';
+import Button from "@mui/material/Button";
 
 const FilterAttractions = () => {
     const {filterValuesAttractions, setFilterValuesAttractions} = useContext(AttractionContext);
@@ -64,10 +65,10 @@ const FilterAttractions = () => {
         <h2 className={styles.filtersTitle}>Filters:</h2>
         {continents.length > 0 && (
             <FilterType 
-            type="continents" 
-            options={continents}
-            selectedOptions={selectedOptions}
-            handleChange={handleChange}
+                type="continents" 
+                options={continents}
+                selectedOptions={selectedOptions}
+                handleChange={handleChange}
             />
         )}
         {categories.length > 0 && (
@@ -78,13 +79,17 @@ const FilterAttractions = () => {
                 handleChange={handleChange}
             />
         )}
-        <button onClick={() => {
-            setFilterValuesAttractions(prevOptions => ({
-            ...prevOptions,
-            ...selectedOptions,
-        }))}}>
+        <Button
+            variant="contained"
+            onClick={() => {
+                setFilterValuesAttractions(prevOptions => ({
+                ...prevOptions,
+                ...selectedOptions,
+                }))
+            }
+        }>
             Done
-        </button>
+        </Button>
 
     </div>
   );

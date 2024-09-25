@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styles from './ShowAttractions.module.css'; 
 import styles_pagination from '../../Pagination.module.css'; 
 import { AttractionContext } from '../../../context/AttractionContext';
@@ -8,19 +8,22 @@ import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
 const ShowAttractions = () => {
-  const {getFilteredAttractions } = useContext(AttractionContext);
-  
+  const {getFilteredAttractions, chosenSort } = useContext(AttractionContext);
+
   // pagination: 
   const currAttractions = getFilteredAttractions();
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(1);
+  const [recordsPerPage] = useState(4);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   // Records to be displayed on the current page
   const currentRecords = currAttractions.slice(indexOfFirstRecord, 
                                     indexOfLastRecord);
-  // console.log('currentRecords changed ' + JSON.stringify(currAttractions, null, 2));
   const nPages = Math.ceil(currAttractions.length / recordsPerPage)
+
+  useEffect(() => {
+    setCurrentPage(1) // every time the filters/sorting changes - go to the first page
+  }, [chosenSort]);
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
@@ -28,12 +31,14 @@ const ShowAttractions = () => {
   if (!currAttractions || currAttractions.length === 0) return <div>No attractions available</div>;
 
   return (
-    <div>
+    <div >
       <div className={styles.container}>
         {currentRecords.map((attraction) => (
             <SingleAttraction key={attraction._id} attraction={attraction} />
           ))}
       </div>
+      <div style={{ height: '100px' }}></div> {/* Spacer */}
+
       <div className={styles_pagination.paginationWrapper}>
         <Stack spacing={2}>
           <Pagination
@@ -47,6 +52,7 @@ const ShowAttractions = () => {
         </Stack>
       </div>
     </div>
+    
   );
 };
 
