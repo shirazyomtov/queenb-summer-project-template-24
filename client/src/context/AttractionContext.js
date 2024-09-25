@@ -19,7 +19,7 @@ const AttractionProvider = ({ children }) => {
         fetchData();
     }, []);
     
-    const getAttractions = () => {
+    const getFilteredAttractions = () => {
         let res = attractions.filter((attraction) => {
             const { continents = [], categories = [], title = '' } = filterValuesAttractions;
 
@@ -68,8 +68,22 @@ const AttractionProvider = ({ children }) => {
         return res;
     };
 
+    const addNewAttraction = (attraction) => {
+        setAttractions([...attractions, attraction]);
+    }
+
+    const updateAttraction = (updatedAttraction) => {
+        const updatedAttractions = attractions.map((attraction) => {
+            if (attraction._id === updatedAttraction._id) {
+                return updatedAttraction;
+            }
+            return attraction;
+        });
+        setAttractions(updatedAttractions);
+    }
+
     return (
-        <AttractionContext.Provider value={{ attractions, filterValuesAttractions, setFilterValuesAttractions, getAttractions, chosenSort, setChosenSort }}>
+        <AttractionContext.Provider value={{ attractions, filterValuesAttractions, setFilterValuesAttractions, getFilteredAttractions, addNewAttraction, updateAttraction, chosenSort, setChosenSort }}>
             {children}
         </AttractionContext.Provider>
     );

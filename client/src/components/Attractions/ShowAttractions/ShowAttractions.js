@@ -8,11 +8,10 @@ import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
 const ShowAttractions = () => {
-  const { filterValuesAttractions, getAttractions, chosenSort } = useContext(AttractionContext);
-  const [loading, setLoading] = useState(true);
-  
+  const {getFilteredAttractions, chosenSort } = useContext(AttractionContext);
+
   // pagination: 
-  let currAttractions = getAttractions();
+  const currAttractions = getFilteredAttractions();
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(4);
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -20,33 +19,15 @@ const ShowAttractions = () => {
   // Records to be displayed on the current page
   const currentRecords = currAttractions.slice(indexOfFirstRecord, 
                                     indexOfLastRecord);
-  // console.log('currentRecords changed ' + JSON.stringify(currAttractions, null, 2));
   const nPages = Math.ceil(currAttractions.length / recordsPerPage)
 
   useEffect(() => {
-    
-    const fetchAttractions = async () => {
-      try {
-        setLoading(true); // Start loading
-        currAttractions = getAttractions();
-        setCurrentPage(1) // every time the filters/sorting changes - go to the first page
-      } catch (error) {
-        console.error('Error fetching attractions:', error);
-      } finally {
-        setLoading(false); // Stop loading
-      }
-    };
-
-    fetchAttractions();
-  }, [filterValuesAttractions, chosenSort]);
+    setCurrentPage(1) // every time the filters/sorting changes - go to the first page
+  }, [chosenSort]);
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
-
-  if (loading) {
-    return <div>Loading attractions...</div>; // Display loading message
-  }
   if (!currAttractions || currAttractions.length === 0) return <div>No attractions available</div>;
 
   return (

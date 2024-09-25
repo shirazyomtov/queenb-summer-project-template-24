@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./AttractionsForm.css";
 import axiosInstance from "../../services/api";
+import { AttractionContext } from '../../context/AttractionContext';
 
 const AttractionForm = () => {
+  const { addNewAttraction } = useContext(AttractionContext);
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -38,19 +40,16 @@ const AttractionForm = () => {
       continent,
     };
 
-    console.log(attraction);
-
     try {
       const response = await axiosInstance.post(
         "/attractions/create",
         attraction
       );
-
+      addNewAttraction(attraction);
       const res = response.data;
 
       handleReset();
       setError(null);
-      console.log("new attraction added", res);
     } catch (error) {
       console.error("Error adding attraction:", error);
       setError("Failed to add attraction");
