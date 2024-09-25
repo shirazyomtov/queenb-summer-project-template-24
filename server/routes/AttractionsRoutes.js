@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   getAllAttractions,
-  filterAttractions,
+  // filterAttractions,
   createAttraction,
   getUniqueValues,
 } = require("../controllers/attractionController");
@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/", getAllAttractions);
 
-router.get("/filter", filterAttractions);
+// router.get("/filter", filterAttractions);
 
 router.post("/create", createAttraction);
 

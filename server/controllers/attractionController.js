@@ -10,42 +10,42 @@ const getAllAttractions = async (req, res) => {
     }
 }
 
-// filter attractions
-const filterAttractions = async (req, res) => {
-    try {
-        // Extract query parameters
-        const { continent, category, title } = req.query;
-        if (title) {
-            let attractions;
-            if (title.length === 0) {
-                attractions = await Attraction.find();
-            } else {
-                attractions = await Attraction.find({
-                    title: { 
-                        $regex: title,
-                        $options: "i"
-                    }
-                });
-            }
-            return res.status(200).json(attractions); // Use return here
-        }
+// // filter attractions
+// const filterAttractions = async (req, res) => {
+//     try {
+//         // Extract query parameters
+//         const { continent, category, title } = req.query;
+//         if (title) {
+//             let attractions;
+//             if (title.length === 0) {
+//                 attractions = await Attraction.find();
+//             } else {
+//                 attractions = await Attraction.find({
+//                     title: { 
+//                         $regex: title,
+//                         $options: "i"
+//                     }
+//                 });
+//             }
+//             return res.status(200).json(attractions); // Use return here
+//         }
         
-        // `continent` and `category` will be arrays if multiple values are sent
-        const filter = {};
+//         // `continent` and `category` will be arrays if multiple values are sent
+//         const filter = {};
 
-        if (continent) {
-            filter.continent = { $in: continent }; // `continent` is already an array
-        }
-        if (category) {
-            filter.category = { $in: category }; // `category` is already an array
-        }
-        const attractions = await Attraction.find(filter);
-        res.status(200).json(attractions);
+//         if (continent) {
+//             filter.continent = { $in: continent }; // `continent` is already an array
+//         }
+//         if (category) {
+//             filter.category = { $in: category }; // `category` is already an array
+//         }
+//         const attractions = await Attraction.find(filter);
+//         res.status(200).json(attractions);
         
-    } catch (err) {
-        res.status(400).json({ message: 'Error getting attractions', error: err });
-    }
-}
+//     } catch (err) {
+//         res.status(400).json({ message: 'Error getting attractions', error: err });
+//     }
+// }
 
 // create a new attraction
 const createAttraction = async (req, res) => {
