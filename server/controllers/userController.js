@@ -12,7 +12,7 @@ const getSingleUser = async (req, res) => {
     const user = await User.findById(id);
     res.status(200).json({ user });
   } catch (err) {
-    res.status(400).json({ mssg: "error getting user", err });
+    res.status(400).json({ mssg: "error getting user" });
   }
 };
 
@@ -23,20 +23,20 @@ const createUser = async (req, res) => {
   const user_exists = await User.findOne({ email });
   if (user_exists) {
     res.status(400).json({ mssg: "user already exists" });
-  } else {
-    try {
-      if (!user_exists) {
-        const user = await User.create({
-          userName,
-          email,
-          password: await bcrypt.hash(password, salt),
-          profilePicURL,
-        });
-        res.status(200).json({ user });
-      }
-    } catch (err) {
-      res.status(400).json({ mssg: "error creating user", err });
+    return;
+  }
+  try {
+    if (!user_exists) {
+      const user = await User.create({
+        userName,
+        email,
+        password: await bcrypt.hash(password, salt),
+        profilePicURL,
+      });
+      res.status(200).json({ user });
     }
+  } catch (err) {
+    res.status(500).json({ err });
   }
 };
 
@@ -48,7 +48,7 @@ const signIn = async (req, res) => {
     const user = await User.findOne({ email }); //find user by email
     if (user == null) {
       // user was not found
-      res.status(400).json({ mssg: "error finding user", err });
+      return res.status(401).json({ mssg: "error finding user" });
     }
 
     if (await bcrypt.compare(password, user.password)) {
@@ -57,29 +57,12 @@ const signIn = async (req, res) => {
         .status(200)
         .json({ userName: user.userName, profilePic: user.profilePicURL });
     } else {
-      res.status(400).json({ mssg: "invalid password" });
+      return res.status(401).json({ mssg: "invalid password" });
     }
   } catch (err) {
-    res.status(400).json({ mssg: "error logging in", err });
+    res.status(400).json({ mssg: "error logging in" });
   }
 };
-
-/* update a user
-const updateUser = async (req, res) => {
-  const { id } = req.params;
-  const { name, color, squeaks } = req.body;
-
-  try {
-    const user = await User.findByIdAndUpdate(
-      id,
-      { name, color, squeaks },
-      { new: true }
-    );
-    res.status(200).json({ user });
-  } catch (err) {
-    res.status(400).json({ mssg: "error updating user", err });
-  }
-};*/
 
 module.exports = {
   createUser,

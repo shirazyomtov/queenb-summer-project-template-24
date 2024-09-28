@@ -3,34 +3,20 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const LoginForm = () => {
-  /*const [loggedIn, setLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");*/
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const [profilePicURL, setProfilePicURL] = useState("");
-  const [error, setError] = useState(null);
-  const { updateAuthState } = useContext(AuthContext);
+  const { login, error } = useContext(AuthContext);
 
   // fetch the data of the user (email and password) after clicking the "Login" button
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = { email, password };
-    const response = await fetch("http://localhost:5000/api/users/login", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: { "Content-Type": "application/json" },
-    });
-    const json = await response.json(); //contains the userName and profilePic URL
+    try {
+      await login({ email, password });
 
-    if (!response.ok) {
-      setError("Incorrect username or password");
-    } else {
-      const name = json.userName;
-      const profilePic = json.profilePic;
-      updateAuthState(name, profilePic);
       setEmail("");
       setPassword("");
-      alert("Welcome " + name);
+    } catch (err) {
+      console.log(err);
     }
   };
 
