@@ -147,7 +147,7 @@ const getUniqueValues = async (req, res) => {
 
 module.exports = {
     getAllAttractions,
-    filterAttractions,
+    // filterAttractions,
     createAttraction,
     getUniqueValues,
 }
