@@ -48,43 +48,45 @@ const UserForm = () => {
   };
 
   return (
-    <form className="create" onSubmit={handleSubmit}>
-      <h3>Register</h3>
+    <div className="container">
+      <form className="create" onSubmit={handleSubmit}>
+        <h3>Register</h3>
 
-      <label>Username:</label>
-      <input
-        type="text"
-        required
-        onChange={(e) => setUserName(e.target.value)}
-        value={userName}
-      />
-      <br />
-      <label>Email:</label>
-      <input
-        type="email"
-        required
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
-      <br />
-      <label>Password:</label>
-      <input
-        type="password"
-        required
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      <br />
-      <label>Profile Picture URL:</label>
-      <input
-        type="text"
-        onChange={(e) => setProfilePicURL(e.target.value)}
-        value={profilePicURL}
-      />
-      <br />
-      <button>Sign Up</button>
-      {error && <div className="error">{error}</div>}
-    </form>
+        <label>Username:</label>
+        <input
+          type="text"
+          required
+          onChange={(e) => setUserName(e.target.value)}
+          value={userName}
+        />
+        <br />
+        <label>Email:</label>
+        <input
+          type="email"
+          required
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
+        <br />
+        <label>Password:</label>
+        <input
+          type="password"
+          required
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+        <br />
+        <label>Profile Picture URL:</label>
+        <input
+          type="text"
+          onChange={(e) => setProfilePicURL(e.target.value)}
+          value={profilePicURL}
+        />
+        <br />
+        <button>Sign Up</button>
+        {error && <div className="error">{error}</div>}
+      </form>
+    </div>
   );
 };
 

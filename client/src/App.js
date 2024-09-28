@@ -32,7 +32,7 @@ function App() {
             </Routes>
           </main>
           <footer className={styles.footer}>
-            <p>&copy; 2024 My App</p>
+            <p>&copy; 2024 WanderSeek</p>
           </footer>
         </div>
       </AuthProvider>
