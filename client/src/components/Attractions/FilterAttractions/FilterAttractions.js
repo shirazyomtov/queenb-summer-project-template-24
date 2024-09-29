@@ -42,8 +42,6 @@ const FilterAttractions = () => {
         // Update selected options based on filter type - 
         // add or delete from the filter type array
         setSelectedOptions(prevOptions => {
-            console.log("prevOptions: ", prevOptions)
-
             // Ensure that prevOptions[filterType] is always an array
             const currentOptions = prevOptions[filterType] || [];
             // Determine the updated options based on whether the checkbox is checked or not
@@ -53,8 +51,6 @@ const FilterAttractions = () => {
                     ? [...currentOptions, checkBoxName]  // Add value if checked
                     : currentOptions.filter(option => option !== checkBoxName) // Remove value if unchecked
             };
-            console.log("updatedOptions: ", updatedOptions)
-            console.log("in filter com - update home selectedOptions with", checkBoxName, ": ", updatedOptions)
             return updatedOptions;
         });
     };

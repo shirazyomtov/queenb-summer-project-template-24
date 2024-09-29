@@ -13,8 +13,8 @@ const SortAttractions = () => {
 
     return (
         <div>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: 120 }}> {/* Align to the right */}
-                <FormControl sx={{ minWidth: 100 }}> {/* Adjust the width here */}
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: 120 }}>
+                <FormControl sx={{ minWidth: 100 }}>
                 <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
