@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { default as axios } from "../services/api";
+import { httpService } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 const defaultImage =
@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      await axios.post("http://localhost:5000/api/users", {
+      await httpService.post("http://localhost:5000/api/users", {
         userName,
         email,
         password,
@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
 
   const login = async ({ email, password }) => {
     try {
-      const response = await axios.post(
+      const response = await httpService.post(
         "http://localhost:5000/api/users/login",
         {
           email,
