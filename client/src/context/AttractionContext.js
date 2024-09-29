@@ -21,15 +21,20 @@ const AttractionProvider = ({ children }) => {
     
     const getFilteredAttractions = () => {
         let res = attractions.filter((attraction) => {
-            const { continents = [], categories = [], title = '' } = filterValuesAttractions;
+            const { continents = [], categories = [], title = '', ratings = []} = filterValuesAttractions;
 
-            if (continents.length === 0 && categories.length === 0) {
+            if (continents.length === 0 && categories.length === 0 && ratings.length === 0) {
                 return attraction.title.toLowerCase().includes(title.toLowerCase());
             } 
             else {
                 return (
                     (!continents.length || continents.includes(attraction.continent)) &&
                     (!categories.length || categories.includes(attraction.category)) &&
+                    // (!ratings.length || attraction.recommendations[0].split("/")[0]>=8) &&
+                    (!ratings.length || ratings.some(rating => {
+                        const minRating = parseInt(rating); // Extract minimum rating value (e.g., 8 from "8 and up")
+                        return attraction.recommendations[0].split("/")[0] >= minRating;
+                    })) &&
                     attraction.title.toLowerCase().includes(title.toLowerCase())
                 );
             }
@@ -48,7 +53,6 @@ const AttractionProvider = ({ children }) => {
             });
         }
 
-
         else if (chosenSort === 'rating') {
             // Sort by recommendations, assuming the recommendation is in format "10/10"
             res = res.sort((a, b) => {
@@ -61,9 +65,6 @@ const AttractionProvider = ({ children }) => {
             });
         }
         
-        // else if (chosenSort === 'newest') {
-        //     res = res.sort((a, b) =>  b.createdAt - a.createdAt ); // Newest first
-        // }
         
         return res;
     };
