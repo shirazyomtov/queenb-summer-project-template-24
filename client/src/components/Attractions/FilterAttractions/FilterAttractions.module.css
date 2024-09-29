@@ -11,16 +11,27 @@
   z-index: 1000; /* Ensure it’s on top of other elements */
 }
 
+
+
 .filtersTitle {
   font-size: 1.5rem;
   margin-bottom: 10px;
   margin-top: 70px;
 }
 
+
 .filterType {
   font-size: 1.2rem;
-  margin-top: 0px;
+  /* margin-top: 0px; */
+  display: flex;
+  flex-direction: column; /* Ensure the label and checkboxes are stacked vertically */
 }
+
+.checkboxContainer {
+  display: flex;
+  
+}
+
 
 .content {
   font-size: 1rem;

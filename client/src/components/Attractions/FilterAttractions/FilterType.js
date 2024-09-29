@@ -5,17 +5,20 @@ import CheckBox from '../../common/FirstCheckBox/CheckBox';
 const FilterType = ({ type, options, selectedOptions, handleChange }) => {
 
     return(
-        <div>
-            <h3 className={styles.filterType}>{type.charAt(0).toUpperCase() + type.slice(1)}:</h3>
-            {options.map((op) => (
-                <CheckBox
-                    key={op} // Unique key for each checkbox
-                    checkBoxName={op}
-                    filterType={`${type}`}
-                    selectedOptions={selectedOptions}
-                    handleChange={(e)=>handleChange(e, `${type}`, op)}
-                />
-            ))}
+        <div className={styles.filterType}>
+            <h3>{type.charAt(0).toUpperCase() + type.slice(1)}:</h3>
+            <div className={styles.checkboxContainer}>
+
+                {options.map((op) => (
+                    <CheckBox
+                        key={op} // Unique key for each checkbox
+                        checkBoxName={op}
+                        filterType={`${type}`}
+                        selectedOptions={selectedOptions}
+                        handleChange={(e)=>handleChange(e, `${type}`, op)}
+                    />
+                ))}
+            </div>
         </div>
     )
 }

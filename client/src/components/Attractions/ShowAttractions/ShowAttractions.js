@@ -8,12 +8,12 @@ import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
 const ShowAttractions = () => {
-  const {getFilteredAttractions, chosenSort } = useContext(AttractionContext);
+  const {filterValuesAttractions, getFilteredAttractions, chosenSort } = useContext(AttractionContext);
 
   // pagination: 
   const currAttractions = getFilteredAttractions();
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(4);
+  const [recordsPerPage] = useState(5);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   // Records to be displayed on the current page
@@ -23,7 +23,7 @@ const ShowAttractions = () => {
 
   useEffect(() => {
     setCurrentPage(1) // every time the filters/sorting changes - go to the first page
-  }, [chosenSort]);
+  }, [filterValuesAttractions, chosenSort]);
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
@@ -37,20 +37,21 @@ const ShowAttractions = () => {
             <SingleAttraction key={attraction._id} attraction={attraction} />
           ))}
       </div>
-      <div style={{ height: '100px' }}></div> {/* Spacer */}
+      <div style={{ height: '100px' }}>{/* Spacer */}
 
-      <div className={styles_pagination.paginationWrapper}>
-        <Stack spacing={2}>
-          <Pagination
-            count={nPages}
-            variant="outlined" 
-            shape="rounded"
-            page={currentPage}
-            onChange={handleChange}
-            color="primary"
-          />
-        </Stack>
-      </div>
+        <div className={styles_pagination.paginationWrapper}>
+          <Stack spacing={2}>
+            <Pagination
+              count={nPages}
+              variant="outlined" 
+              shape="rounded"
+              page={currentPage}
+              onChange={handleChange}
+              color="primary"
+            />
+          </Stack>
+        </div>
+      </div> 
     </div>
     
   );

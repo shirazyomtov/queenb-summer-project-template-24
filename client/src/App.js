@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/HomePage/HomePage";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
@@ -14,14 +14,18 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <div className={styles.app}>
+
           <header className={styles.appHeader}>
+          <Link to="/" className={styles.appLink}>
             <img
               src="/project-logo.png"
               alt="Logo"
               className={styles.appLogo}
             />
+          </Link>
             <NavBar />
           </header>
+
           <main className={styles.main}>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -31,9 +35,11 @@ function App() {
               <Route path="/upload" element={<UploadDataPage />} />
             </Routes>
           </main>
+
           <footer className={styles.footer}>
             <p>&copy; 2024 WanderSeek</p>
           </footer>
+
         </div>
       </AuthProvider>
     </BrowserRouter>
