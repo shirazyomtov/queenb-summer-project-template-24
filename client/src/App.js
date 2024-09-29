@@ -14,6 +14,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <div className={styles.app}>
+
           <header className={styles.appHeader}>
             <Link to="/" className={styles.appLink}>
               <img
@@ -38,6 +39,7 @@ function App() {
           <footer className={styles.footer}>
             <p>&copy; 2024 WanderSeek</p>
           </footer>
+
         </div>
       </AuthProvider>
     </BrowserRouter>
