@@ -10,22 +10,22 @@ const UserForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profilePicURL, setProfilePicURL] = useState("");
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [popup, setPopup] = useState(null);
   const { register, successMessage, registerError } = useContext(AuthContext);
 
-  // Open the Popover when clicking the Info icon
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  // Close the Popover
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // Determine if Popover is open
-  const open = Boolean(anchorEl);
+  // Determine if Popup is open
+  const open = Boolean(popup);
   const id = open ? "info-popover" : undefined;
+
+  // Open the Popup when clicking the Info icon
+  const handleClick = (event) => {
+    setPopup(event.currentTarget);
+  };
+
+  // Close the Popup
+  const handleClose = () => {
+    setPopup(null);
+  };
 
   // fetch the data of the new user after clicking the "Sign Up" button
   const handleSubmit = async (e) => {
@@ -64,7 +64,6 @@ const UserForm = () => {
         <br />
         <div style={{ display: "flex", alignItems: "left" }}>
           <label>Password:</label>
-          {/* Clickable Info Button */}
           <IconButton
             disableRipple
             style={{
@@ -75,12 +74,11 @@ const UserForm = () => {
             <InfoIcon />
           </IconButton>
 
-          {/* Popover with more information */}
           <Popover
             position="absolute"
             id={id}
             open={open}
-            anchorEl={anchorEl}
+            anchorEl={popup}
             onClose={handleClose}
             anchorOrigin={{
               vertical: "bottom",
@@ -116,7 +114,7 @@ const UserForm = () => {
         {registerError && <div className="error">{registerError}</div>}
         {successMessage && (
           <div className="success">
-            {successMessage} <br></br>
+            {successMessage} <br />
             <Link to="/login" className={"../styles.appLink"}>
               Log In
             </Link>

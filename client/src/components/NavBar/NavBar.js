@@ -6,21 +6,20 @@ import { Menu, MenuItem, IconButton, Avatar } from "@mui/material";
 
 export const NavBar = () => {
   const { user, logout } = useContext(AuthContext);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [popup, setPopup] = useState(null);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setPopup(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setPopup(null);
   };
 
   return (
     <nav className={styles.appNav}>
       {user.isLoggedIn ? (
         <div>
-          {/* Profile picture as a clickable button */}
           <IconButton onClick={handleClick}>
             <Avatar
               src={user.profilePic}
@@ -29,12 +28,7 @@ export const NavBar = () => {
             />
           </IconButton>
 
-          {/* MUI Popup Menu */}
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
+          <Menu anchorEl={popup} open={Boolean(popup)} onClose={handleClose}>
             <MenuItem
               disabled
               sx={{

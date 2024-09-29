@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import "./AttractionsForm.css";
-import axiosInstance from "../../services/api";
-import { AttractionContext } from '../../context/AttractionContext';
+import { httpService } from "../../services/api";
+import { AttractionContext } from "../../context/AttractionContext";
 
 const AttractionForm = () => {
   const { addNewAttraction } = useContext(AttractionContext);
@@ -41,7 +41,7 @@ const AttractionForm = () => {
     };
 
     try {
-      const response = await axiosInstance.post(
+      const response = await httpService.post(
         "/attractions/create",
         attraction
       );
