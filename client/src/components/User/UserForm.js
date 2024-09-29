@@ -1,49 +1,43 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { IconButton, Popover, Typography } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import styles from "../../styles/App.module.css";
 
 const UserForm = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profilePicURL, setProfilePicURL] = useState("");
-  const [error, setError] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { register, successMessage, registerError } = useContext(AuthContext);
+
+  // Open the Popover when clicking the Info icon
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  // Close the Popover
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // Determine if Popover is open
+  const open = Boolean(anchorEl);
+  const id = open ? "info-popover" : undefined;
 
   // fetch the data of the new user after clicking the "Sign Up" button
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = { userName, email, password, profilePicURL };
-
-    //check if password meets the criteria - at least 8 characters, numbers letters capital case and a sign
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters long");
-      return;
-    }
-
-    if (!/[A-Z]/.test(password)) {
-      setError("Password must contain at least one capital letter");
-      return;
-    }
-
-    if (!/[!@#$%^&*(),.?":{}|<>~[\]\\/'`_+=-]/.test(password)) {
-      setError("Password must contain at least one spacial symbol");
-      return;
-    }
-
-    const response = await fetch("http://localhost:5000/api/users", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: { "Content-Type": "application/json" },
-    });
-    const json = await response.json();
-
-    if (!response.ok) {
-      setError(json.mssg);
-    } else {
+    try {
+      await register({ userName, email, password, profilePicURL });
       setUserName("");
       setEmail("");
       setPassword("");
       setProfilePicURL("");
-      setError(null);
-      alert("new user created");
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -68,7 +62,42 @@ const UserForm = () => {
           value={email}
         />
         <br />
-        <label>Password:</label>
+        <div style={{ display: "flex", alignItems: "left" }}>
+          <label>Password:</label>
+          {/* Clickable Info Button */}
+          <IconButton
+            disableRipple
+            style={{
+              backgroundColor: "transparent",
+            }}
+            onClick={handleClick}
+          >
+            <InfoIcon />
+          </IconButton>
+
+          {/* Popover with more information */}
+          <Popover
+            position="absolute"
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Typography sx={{ p: 2 }}>
+              <strong>Password must have:</strong>
+              <ul className={styles.paragraph}>
+                <li>At least 8 characters</li>
+                <li>At least one capital letter</li>
+                <li>At least one number</li>
+                <li>At least one special sign</li>
+              </ul>
+            </Typography>
+          </Popover>
+        </div>
         <input
           type="password"
           required
@@ -84,7 +113,15 @@ const UserForm = () => {
         />
         <br />
         <button>Sign Up</button>
-        {error && <div className="error">{error}</div>}
+        {registerError && <div className="error">{registerError}</div>}
+        {successMessage && (
+          <div className="success">
+            {successMessage} <br></br>
+            <Link to="/login" className={"../styles.appLink"}>
+              Log In
+            </Link>
+          </div>
+        )}
       </form>
     </div>
   );

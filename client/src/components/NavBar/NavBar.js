@@ -18,9 +18,6 @@ export const NavBar = () => {
 
   return (
     <nav className={styles.appNav}>
-      <Link to="/" className={styles.appLink}>
-        Home
-      </Link>
       {user.isLoggedIn ? (
         <div>
           {/* Profile picture as a clickable button */}

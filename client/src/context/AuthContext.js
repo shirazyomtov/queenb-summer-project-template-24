@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import axiosInstance from "../services/api";
+import { default as axios } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 const defaultImage =
@@ -16,11 +16,43 @@ const AuthProvider = ({ children }) => {
     userName: "",
     profilePic: "",
   });
-  const [error, setError] = useState(null);
+  const [registerError, setRegisterError] = useState(null);
+  const [loginError, setLoginError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+
+  const register = async ({ userName, email, password, profilePicURL }) => {
+    //check if password meets the criteria - at least 8 characters, numbers letters capital case and a sign
+    if (password.length < 8) {
+      setRegisterError("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setRegisterError("Password must contain at least one capital letter");
+      return;
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>~[\]\\/'`_+=-]/.test(password)) {
+      setRegisterError("Password must contain at least one spacial symbol");
+      return;
+    }
+    try {
+      await axios.post("http://localhost:5000/api/users", {
+        userName,
+        email,
+        password,
+        profilePicURL,
+      });
+      setSuccessMessage("new user created");
+    } catch (err) {
+      console.log(err);
+      setRegisterError("Couldn't register user, try again");
+    }
+  };
 
   const login = async ({ email, password }) => {
     try {
-      const response = await axiosInstance.post(
+      const response = await axios.post(
         "http://localhost:5000/api/users/login",
         {
           email,
@@ -38,7 +70,7 @@ const AuthProvider = ({ children }) => {
       navigate("/"); //return to home page
     } catch (err) {
       console.log(err);
-      setError("Incorrect username or password");
+      setLoginError("Incorrect username or password");
     }
   };
 
@@ -47,7 +79,17 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, error }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        register,
+        login,
+        logout,
+        successMessage,
+        registerError,
+        loginError,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
