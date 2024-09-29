@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, error } = useContext(AuthContext);
+  const { login, loginError } = useContext(AuthContext);
 
   // fetch the data of the user (email and password) after clicking the "Login" button
   const handleSubmit = async (e) => {
@@ -46,7 +46,7 @@ const LoginForm = () => {
           value={password}
         />
         <br />
-        {error && <div className="error">{error}</div>}
+        {loginError && <div className="error">{loginError}</div>}
         <button>Login</button>
       </form>
     </div>
