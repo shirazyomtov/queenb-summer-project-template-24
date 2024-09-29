@@ -23,9 +23,9 @@ const SortAttractions = () => {
                     label="Sort By"
                     onChange={handleSortChange}
                 >
-                    <MenuItem value="rating">Rating</MenuItem>
-                    <MenuItem value="country">Country</MenuItem>
-                    <MenuItem value="title">Name</MenuItem>
+                    <MenuItem value="rating">Rating (high to low)</MenuItem>
+                    <MenuItem value="country">Country Name</MenuItem>
+                    <MenuItem value="title">Attraction Name</MenuItem>
                 </Select>
                 </FormControl>
             </Box>

@@ -4,6 +4,8 @@ import FilterType from './FilterType';
 import {fetchFilterValues} from '../../../services/utils';
 import { AttractionContext } from '../../../context/AttractionContext';
 import Button from "@mui/material/Button";
+import Rating from '@mui/material/Rating';
+
 
 const FilterAttractions = () => {
     const {filterValuesAttractions, setFilterValuesAttractions} = useContext(AttractionContext);
@@ -11,6 +13,7 @@ const FilterAttractions = () => {
     const [selectedOptions, setSelectedOptions] = useState(options);
     const [continents, setContinents] = useState([]);
     const [categories, setCategories] = useState([]);
+    const rating = ["8 and up", "9 and up", "10"];
 
     const getValues = async () => {
         try {
@@ -29,6 +32,7 @@ const FilterAttractions = () => {
             ...prevOptions,
             continents: [],
             categories: [],
+            ratings: ""
         }))
     }, []);
 
@@ -59,6 +63,13 @@ const FilterAttractions = () => {
   return (
     <div className={styles.filtersContainer}>
         <h2 className={styles.filtersTitle}>Filters:</h2>
+        
+        <FilterType 
+            type="ratings" 
+            options={rating}
+            selectedOptions={selectedOptions}
+            handleChange={handleChange}
+        />
         {continents.length > 0 && (
             <FilterType 
                 type="continents" 
