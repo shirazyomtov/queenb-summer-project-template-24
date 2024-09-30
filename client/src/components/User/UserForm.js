@@ -86,7 +86,7 @@ const UserForm = () => {
             }}
           >
             <Typography sx={{ p: 2 }}>
-              <strong>Password must have:</strong>
+              <strong>Password must include:</strong>
               <ul className={styles.paragraph}>
                 <li>At least 8 characters</li>
                 <li>At least one capital letter</li>
