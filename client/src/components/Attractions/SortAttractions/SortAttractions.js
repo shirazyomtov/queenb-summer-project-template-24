@@ -4,11 +4,11 @@ import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 
 const SortAttractions = () => {
-    const { chosenSort, setChosenSort } = useContext(AttractionContext);
+    const { selectedSortingOption , setSelectedSortingOption } = useContext(AttractionContext);
 
     // Event handler for selecting a sort option
     const handleSortChange = (event) => {
-        setChosenSort(event.target.value); // Update the sort option when user selects a new one
+        setSelectedSortingOption(event.target.value); // Update the sort option when user selects a new one
     };
 
     return (
@@ -19,7 +19,7 @@ const SortAttractions = () => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={chosenSort}
+                    value={selectedSortingOption }
                     label="Sort By"
                     onChange={handleSortChange}
                 >
