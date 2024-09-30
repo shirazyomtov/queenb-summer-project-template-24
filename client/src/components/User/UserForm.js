@@ -13,16 +13,10 @@ const UserForm = () => {
   const [popup, setPopup] = useState(null);
   const { register, successMessage, registerError } = useContext(AuthContext);
 
-  // Determine if Popup is open
-  const open = Boolean(popup);
-  const id = open ? "info-popover" : undefined;
-
-  // Open the Popup when clicking the Info icon
   const handleClick = (event) => {
     setPopup(event.currentTarget);
   };
 
-  // Close the Popup
   const handleClose = () => {
     setPopup(null);
   };
@@ -76,8 +70,7 @@ const UserForm = () => {
 
           <Popover
             position="absolute"
-            id={id}
-            open={open}
+            open={Boolean(popup)}
             anchorEl={popup}
             onClose={handleClose}
             anchorOrigin={{
