@@ -27,7 +27,7 @@ const AttractionOverviewPage = () => {
       <Grid size={7}>
         <h2>{title}</h2>
         <h3>{city}</h3>
-        <p>{description}</p>
+        <p className={styles.paragraph}>{description}</p>
         <p>Recommendations: {recommendations}</p>
         <p>Country: {country}</p>
         <p>Category: {category}</p>

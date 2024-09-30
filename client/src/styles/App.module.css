@@ -14,7 +14,7 @@
 
 .appLogo {
   height: 100px;
-  border-radius: 26%;
+  border-radius: 25%;
 }
 
 .appNav {
@@ -37,6 +37,11 @@
   padding: 20px;
   background-color: #ffffff;
   height: 125vh;
+}
+
+.paragraph {
+  text-align: left;
+  margin: 0;
 }
 
 .footer {

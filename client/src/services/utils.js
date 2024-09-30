@@ -1,4 +1,4 @@
-import api from './api';
+import { httpService as api } from "./api";
 
 export const fetchAttractions = async () => {
   try {
@@ -12,17 +12,17 @@ export const fetchAttractions = async () => {
 
 export const fetchFilterValues = async () => {
   try {
-      const [continentsResponse, categoriesResponse] = await Promise.all([
-          api.get(`/attractions/unique/continent`),
-          api.get(`/attractions/unique/category`)
-      ]);
+    const [continentsResponse, categoriesResponse] = await Promise.all([
+      api.get(`/attractions/unique/continent`),
+      api.get(`/attractions/unique/category`),
+    ]);
 
-      return {
-          continents: continentsResponse.data,
-          categories: categoriesResponse.data
-      };
+    return {
+      continents: continentsResponse.data,
+      categories: categoriesResponse.data,
+    };
   } catch (error) {
-      console.error('Error fetching filter values:', error);
-      throw error;
+    console.error("Error fetching filter values:", error);
+    throw error;
   }
 };
