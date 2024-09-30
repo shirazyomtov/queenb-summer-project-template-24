@@ -26,3 +26,17 @@ export const fetchFilterValues = async () => {
     throw error;
   }
 };
+
+export const createAttraction = async (attraction) => {
+  try{
+    const res = api.post(
+      "/attractions/create",
+      attraction
+    );
+    return res.data;
+  }
+  catch (error) {
+    console.error("Error fetching filter values:", error);
+    throw error;
+  }
+};

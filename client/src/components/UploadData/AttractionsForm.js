@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import "./AttractionsForm.css";
-import { httpService } from "../../services/api";
 import { AttractionContext } from "../../context/AttractionContext";
+import { createAttraction } from "../../services/utils";
 
 const AttractionForm = () => {
   const { addNewAttraction } = useContext(AttractionContext);
@@ -41,13 +41,8 @@ const AttractionForm = () => {
     };
 
     try {
-      const response = await httpService.post(
-        "/attractions/create",
-        attraction
-      );
+      await createAttraction(attraction);
       addNewAttraction(attraction);
-      const res = response.data;
-
       handleReset();
       setError(null);
     } catch (error) {
