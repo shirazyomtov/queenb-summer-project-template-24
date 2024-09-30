@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import "./AttractionsForm.css";
 import { AttractionContext } from "../../context/AttractionContext";
 import { createAttraction } from "../../services/utils";
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 
 const AttractionForm = () => {
   const { addNewAttraction } = useContext(AttractionContext);
@@ -14,6 +16,7 @@ const AttractionForm = () => {
   const [country, setCountry] = useState("");
   const [continent, setContinent] = useState("");
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleReset = () => {
     setTitle("");
@@ -45,6 +48,7 @@ const AttractionForm = () => {
       addNewAttraction(attraction);
       handleReset();
       setError(null);
+      setSuccessMessage("Successfully uploaded your attraction");
     } catch (error) {
       console.error("Error adding attraction:", error);
       setError("Failed to add attraction");
@@ -133,6 +137,11 @@ const AttractionForm = () => {
         </button>
         <button type="submit">Add Attraction</button>
         {error && <div className="error">{error}</div>}
+        {successMessage && (
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            {successMessage}
+          </Alert>
+        )}
       </form>
     </div>
   );

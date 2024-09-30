@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { IconButton, Popover, Typography } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 import styles from "../../styles/App.module.css";
 
 const UserForm = () => {
@@ -12,6 +14,13 @@ const UserForm = () => {
   const [profilePicURL, setProfilePicURL] = useState("");
   const [popup, setPopup] = useState(null);
   const { register, successMessage, registerError } = useContext(AuthContext);
+
+  const handleReset = () => {
+    setUserName("");
+    setEmail("");
+    setPassword("");
+    setProfilePicURL("");
+  };
 
   const handleClick = (event) => {
     setPopup(event.currentTarget);
@@ -103,11 +112,17 @@ const UserForm = () => {
           value={profilePicURL}
         />
         <br />
+        <button type="button" onClick={handleReset}>
+          Reset
+        </button>
         <button>Sign Up</button>
         {registerError && <div className="error">{registerError}</div>}
         {successMessage && (
           <div className="success">
-            {successMessage} <br />
+            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+              {successMessage}
+            </Alert>
+            <br />
             <Link to="/login" className={"../styles.appLink"}>
               Log In
             </Link>
