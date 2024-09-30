@@ -8,12 +8,12 @@ import Stack from '@mui/material/Stack';
 
 // present the attraction in home page, according to the filters
 const ShowAttractions = () => {
-  const {filterValuesAttractions, getFilteredAttractions, chosenSort } = useContext(AttractionContext);
+  const {filterValuesAttractions, getFilteredAttractions, selectedSortingOption } = useContext(AttractionContext);
 
   // pagination: 
   const currAttractions = getFilteredAttractions();
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(5);
+  const recordsPerPage = 5;
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   // Records to be displayed on the current page
@@ -23,7 +23,7 @@ const ShowAttractions = () => {
 
   useEffect(() => {
     setCurrentPage(1) // every time the filters/sorting changes - go to the first page
-  }, [filterValuesAttractions, chosenSort]);
+  }, [filterValuesAttractions, selectedSortingOption ]);
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
