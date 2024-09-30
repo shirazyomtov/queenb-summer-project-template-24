@@ -6,8 +6,29 @@
   max-width: 828px;
 }
 
-.paragraph {
+.titleAndRating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating {
+  margin-left: 0px; /* Add some spacing between the title and rating if needed */
+}
+
+.description {
   text-align: left;
-  margin-left: 30px;
-  margin-right: 30px;
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #4a4a4a;
+  margin: 16px 0;
+}
+
+.titleCategory {
+  margin: 20px;
+}
+
+.titleContainer {
+  margin-left: 20px;
 }
