@@ -10,9 +10,9 @@ const AttractionForm = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
   const [recommendations, setRecommendations] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Sights");
   const [country, setCountry] = useState("");
-  const [continent, setContinent] = useState("");
+  const [continent, setContinent] = useState("Europe");
   const [error, setError] = useState(null);
 
   const handleReset = () => {
@@ -55,7 +55,7 @@ const AttractionForm = () => {
     <div className="container">
       <form onSubmit={handleSubmit}>
         <h3>Add a new attraction</h3>
-        <label>Attraction Title:</label>
+        <label>Title:</label>
         <input
           type="text"
           onChange={(event) => setTitle(event.target.value)}
@@ -64,7 +64,32 @@ const AttractionForm = () => {
           required
         />
 
-        <label>Attraction city:</label>
+        <label>Continent:</label>
+        <select
+          name="continent"
+          id="continent"
+          onChange={(event) => setContinent(event.target.value)}
+          value={continent}
+        >
+          <option value="Europe">Europe</option>
+          <option value="North America">North America</option>
+          <option value="Asia">Asia</option>
+          <option value="Oceania">Oceania</option>
+          <option value="South America">South America</option>
+          <option value="Australia">Australia</option>
+          <option value="Africa">Africa</option>
+        </select>
+
+        <label>Country:</label>
+        <input
+          type="text"
+          onChange={(event) => setCountry(event.target.value)}
+          value={country}
+          placeholder="Enter country"
+          required
+        />
+
+        <label>City:</label>
         <input
           type="text"
           onChange={(event) => setCity(event.target.value)}
@@ -73,7 +98,7 @@ const AttractionForm = () => {
           required
         />
 
-        <label>Attraction image (enter a link url to the chosen image):</label>
+        <label>Image (enter a link url to the chosen image):</label>
         <input
           type="text"
           onChange={(event) => setImageUrl(event.target.value)}
@@ -82,7 +107,7 @@ const AttractionForm = () => {
           required
         />
 
-        <label>Attraction description:</label>
+        <label>Description:</label>
         <textarea
           cols="65"
           rows="10"
@@ -92,9 +117,7 @@ const AttractionForm = () => {
           required
         />
 
-        <label>
-          Attraction recommendations (enter a number between 1 to 10):
-        </label>
+        <label>Recommendations (enter a number between 1 to 10):</label>
         <input
           type="number"
           onChange={(event) => setRecommendations(event.target.value)}
@@ -102,32 +125,19 @@ const AttractionForm = () => {
           placeholder="Enter your rating, where 10 represents the best attraction and 1 the worst"
           required
         />
-        <label>Attraction category:</label>
-        <input
-          type="text"
+        <label htmlFor="category">Category:</label>
+        <select
+          name="category"
+          id="category"
           onChange={(event) => setCategory(event.target.value)}
           value={category}
-          placeholder="Enter category"
-          required
-        />
+        >
+          <option value="Sights">Sight</option>
+          <option value="Restaurants">Restaurant</option>
+          <option value="Museums">Museum</option>
+          <option value="Events">Event</option>
+        </select>
 
-        <label>Attraction country:</label>
-        <input
-          type="text"
-          onChange={(event) => setCountry(event.target.value)}
-          value={country}
-          placeholder="Enter country"
-          required
-        />
-
-        <label>Attraction continent:</label>
-        <input
-          type="text"
-          onChange={(event) => setContinent(event.target.value)}
-          value={continent}
-          placeholder="Enter continent"
-          //   required
-        />
         <button type="button" onClick={handleReset}>
           Reset
         </button>
