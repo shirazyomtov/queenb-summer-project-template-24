@@ -118,6 +118,7 @@ const AttractionForm = () => {
           placeholder="enter description"
           onChange={(event) => setDescription(event.target.value)}
           value={description}
+          style={{ resize: 'none' }}
           required
         />
 
@@ -126,6 +127,8 @@ const AttractionForm = () => {
           type="number"
           onChange={(event) => setRecommendations(event.target.value)}
           value={recommendations}
+          min="1"
+          max="10"
           placeholder="Enter your rating, where 10 represents the best attraction and 1 the worst"
           required
         />
